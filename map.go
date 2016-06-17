@@ -1,1246 +1,1921 @@
 package asciiFolding
 
-var FoldMap = map[string]string{
-    "C0": "A",
-    "C1": "A",
-    "C2": "A",
-    "C3": "A",
-    "C4": "A",
-    "C5": "A",
-    "100": "A",
-    "102": "A",
-    "104": "A",
-    "18F": "A",
-    "1CD": "A",
-    "1DE": "A",
-    "1E0": "A",
-    "1FA": "A",
-    "200": "A",
-    "202": "A",
-    "226": "A",
-    "23A": "A",
-    "1D00": "A",
-    "1E00": "A",
-    "1EA0": "A",
-    "1EA2": "A",
-    "1EA4": "A",
-    "1EA6": "A",
-    "1EA8": "A",
-    "1EAA": "A",
-    "1EAC": "A",
-    "1EAE": "A",
-    "1EB0": "A",
-    "1EB2": "A",
-    "1EB4": "A",
-    "1EB6": "A",
-    "24B6": "A",
-    "FF21": "A",
-    "E0": "a",
-    "E1": "a",
-    "E2": "a",
-    "E3": "a",
-    "E4": "a",
-    "E5": "a",
-    "101": "a",
-    "103": "a",
-    "105": "a",
-    "1CE": "a",
-    "1DF": "a",
-    "1E1": "a",
-    "1FB": "a",
-    "201": "a",
-    "203": "a",
-    "227": "a",
-    "250": "a",
-    "259": "a",
-    "25A": "a",
-    "1D8F": "a",
-    "1D95": "a",
-    "1E01": "a",
-    "1E9A": "a",
-    "1EA1": "a",
-    "1EA3": "a",
-    "1EA5": "a",
-    "1EA7": "a",
-    "1EA9": "a",
-    "1EAB": "a",
-    "1EAD": "a",
-    "1EAF": "a",
-    "1EB1": "a",
-    "1EB3": "a",
-    "1EB5": "a",
-    "1EB7": "a",
-    "2090": "a",
-    "2094": "a",
-    "24D0": "a",
-    "2C65": "a",
-    "2C6F": "a",
-    "FF41": "a",
-    "A732": "AA",
-    "C6": "AE",
-    "1E2": "AE",
-    "1FC": "AE",
-    "1D01": "AE",
-    "A734": "AO",
-    "A736": "AU",
-    "A738": "AV",
-    "A73A": "AV",
-    "A73C": "AY",
-    "249C": "(a)",
-    "A733": "aa",
-    "E6": "ae",
-    "1E3": "ae",
-    "1FD": "ae",
-    "1D02": "ae",
-    "A735": "ao",
-    "A737": "au",
-    "A739": "av",
-    "A73B": "av",
-    "A73D": "ay",
-    "181": "B",
-    "182": "B",
-    "243": "B",
-    "299": "B",
-    "1D03": "B",
-    "1E02": "B",
-    "1E04": "B",
-    "1E06": "B",
-    "24B7": "B",
-    "FF22": "B",
-    "180": "b",
-    "183": "b",
-    "253": "b",
-    "1D6C": "b",
-    "1D80": "b",
-    "1E03": "b",
-    "1E05": "b",
-    "1E07": "b",
-    "24D1": "b",
-    "FF42": "b",
-    "249D": "(b)",
-    "C7": "C",
-    "106": "C",
-    "108": "C",
-    "10A": "C",
-    "10C": "C",
-    "187": "C",
-    "23B": "C",
-    "297": "C",
-    "1D04": "C",
-    "1E08": "C",
-    "24B8": "C",
-    "FF23": "C",
-    "E7": "c",
-    "107": "c",
-    "109": "c",
-    "10B": "c",
-    "10D": "c",
-    "188": "c",
-    "23C": "c",
-    "255": "c",
-    "1E09": "c",
-    "2184": "c",
-    "24D2": "c",
-    "A73E": "c",
-    "A73F": "c",
-    "FF43": "c",
-    "249E": "(c)",
-    "D0": "D",
-    "10E": "D",
-    "110": "D",
-    "189": "D",
-    "18A": "D",
-    "18B": "D",
-    "1D05": "D",
-    "1D06": "D",
-    "1E0A": "D",
-    "1E0C": "D",
-    "1E0E": "D",
-    "1E10": "D",
-    "1E12": "D",
-    "24B9": "D",
-    "A779": "D",
-    "FF24": "D",
-    "F0": "d",
-    "10F": "d",
-    "111": "d",
-    "18C": "d",
-    "221": "d",
-    "256": "d",
-    "257": "d",
-    "1D6D": "d",
-    "1D81": "d",
-    "1D91": "d",
-    "1E0B": "d",
-    "1E0D": "d",
-    "1E0F": "d",
-    "1E11": "d",
-    "1E13": "d",
-    "24D3": "d",
-    "A77A": "d",
-    "FF44": "d",
-    "1C4": "DZ",
-    "1F1": "DZ",
-    "1C5": "Dz",
-    "1F2": "Dz",
-    "249F": "(d)",
-    "238": "db",
-    "1C6": "dz",
-    "1F3": "dz",
-    "2A3": "dz",
-    "2A5": "dz",
-    "C8": "E",
-    "C9": "E",
-    "CA": "E",
-    "CB": "E",
-    "112": "E",
-    "114": "E",
-    "116": "E",
-    "118": "E",
-    "11A": "E",
-    "18E": "E",
-    "190": "E",
-    "204": "E",
-    "206": "E",
-    "228": "E",
-    "246": "E",
-    "1D07": "E",
-    "1E14": "E",
-    "1E16": "E",
-    "1E18": "E",
-    "1E1A": "E",
-    "1E1C": "E",
-    "1EB8": "E",
-    "1EBA": "E",
-    "1EBC": "E",
-    "1EBE": "E",
-    "1EC0": "E",
-    "1EC2": "E",
-    "1EC4": "E",
-    "1EC6": "E",
-    "24BA": "E",
-    "2C7B": "E",
-    "FF25": "E",
-    "E8": "e",
-    "E9": "e",
-    "EA": "e",
-    "EB": "e",
-    "113": "e",
-    "115": "e",
-    "117": "e",
-    "119": "e",
-    "11B": "e",
-    "1DD": "e",
-    "205": "e",
-    "207": "e",
-    "229": "e",
-    "247": "e",
-    "258": "e",
-    "25B": "e",
-    "25C": "e",
-    "25D": "e",
-    "25E": "e",
-    "29A": "e",
-    "1D08": "e",
-    "1D92": "e",
-    "1D93": "e",
-    "1D94": "e",
-    "1E15": "e",
-    "1E17": "e",
-    "1E19": "e",
-    "1E1B": "e",
-    "1E1D": "e",
-    "1EB9": "e",
-    "1EBB": "e",
-    "1EBD": "e",
-    "1EBF": "e",
-    "1EC1": "e",
-    "1EC3": "e",
-    "1EC5": "e",
-    "1EC7": "e",
-    "2091": "e",
-    "24D4": "e",
-    "2C78": "e",
-    "FF45": "e",
-    "24A0": "(e)",
-    "191": "F",
-    "1E1E": "F",
-    "24BB": "F",
-    "A730": "F",
-    "A77B": "F",
-    "A7FB": "F",
-    "FF26": "F",
-    "192": "f",
-    "1D6E": "f",
-    "1D82": "f",
-    "1E1F": "f",
-    "1E9B": "f",
-    "24D5": "f",
-    "A77C": "f",
-    "FF46": "f",
-    "24A1": "(f)",
-    "FB00": "ff",
-    "FB03": "ffi",
-    "FB04": "ffl",
-    "FB01": "fi",
-    "FB02": "fl",
-    "11C": "G",
-    "11E": "G",
-    "120": "G",
-    "122": "G",
-    "193": "G",
-    "1E4": "G",
-    "1E5": "G",
-    "1E6": "G",
-    "1E7": "G",
-    "1F4": "G",
-    "262": "G",
-    "29B": "G",
-    "1E20": "G",
-    "24BC": "G",
-    "A77D": "G",
-    "A77E": "G",
-    "FF27": "G",
-    "11D": "g",
-    "11F": "g",
-    "121": "g",
-    "123": "g",
-    "1F5": "g",
-    "260": "g",
-    "261": "g",
-    "1D77": "g",
-    "1D79": "g",
-    "1D83": "g",
-    "1E21": "g",
-    "24D6": "g",
-    "A77F": "g",
-    "FF47": "g",
-    "24A2": "(g)",
-    "124": "H",
-    "126": "H",
-    "21E": "H",
-    "29C": "H",
-    "1E22": "H",
-    "1E24": "H",
-    "1E26": "H",
-    "1E28": "H",
-    "1E2A": "H",
-    "24BD": "H",
-    "2C67": "H",
-    "2C75": "H",
-    "FF28": "H",
-    "125": "h",
-    "127": "h",
-    "21F": "h",
-    "265": "h",
-    "266": "h",
-    "2AE": "h",
-    "2AF": "h",
-    "1E23": "h",
-    "1E25": "h",
-    "1E27": "h",
-    "1E29": "h",
-    "1E2B": "h",
-    "1E96": "h",
-    "24D7": "h",
-    "2C68": "h",
-    "2C76": "h",
-    "FF48": "h",
-    "1F6": "HV",
-    "24A3": "(h)",
-    "195": "hv",
-    "CC": "I",
-    "CD": "I",
-    "CE": "I",
-    "CF": "I",
-    "128": "I",
-    "12A": "I",
-    "12C": "I",
-    "12E": "I",
-    "130": "I",
-    "196": "I",
-    "197": "I",
-    "1CF": "I",
-    "208": "I",
-    "20A": "I",
-    "26A": "I",
-    "1D7B": "I",
-    "1E2C": "I",
-    "1E2E": "I",
-    "1EC8": "I",
-    "1ECA": "I",
-    "24BE": "I",
-    "A7FE": "I",
-    "FF29": "I",
-    "EC": "i",
-    "ED": "i",
-    "EE": "i",
-    "EF": "i",
-    "129": "i",
-    "12B": "i",
-    "12D": "i",
-    "12F": "i",
-    "131": "i",
-    "1D0": "i",
-    "209": "i",
-    "20B": "i",
-    "268": "i",
-    "1D09": "i",
-    "1D62": "i",
-    "1D7C": "i",
-    "1D96": "i",
-    "1E2D": "i",
-    "1E2F": "i",
-    "1EC9": "i",
-    "1ECB": "i",
-    "2071": "i",
-    "24D8": "i",
-    "FF49": "i",
-    "132": "IJ",
-    "24A4": "(i)",
-    "133": "ij",
-    "134": "J",
-    "248": "J",
-    "1D0A": "J",
-    "24BF": "J",
-    "FF2A": "J",
-    "135": "j",
-    "1F0": "j",
-    "237": "j",
-    "249": "j",
-    "25F": "j",
-    "284": "j",
-    "29D": "j",
-    "24D9": "j",
-    "2C7C": "j",
-    "FF4A": "j",
-    "24A5": "(j)",
-    "136": "K",
-    "198": "K",
-    "1E8": "K",
-    "1D0B": "K",
-    "1E30": "K",
-    "1E32": "K",
-    "1E34": "K",
-    "24C0": "K",
-    "2C69": "K",
-    "A740": "K",
-    "A742": "K",
-    "A744": "K",
-    "FF2B": "K",
-    "137": "k",
-    "199": "k",
-    "1E9": "k",
-    "29E": "k",
-    "1D84": "k",
-    "1E31": "k",
-    "1E33": "k",
-    "1E35": "k",
-    "24DA": "k",
-    "2C6A": "k",
-    "A741": "k",
-    "A743": "k",
-    "A745": "k",
-    "FF4B": "k",
-    "24A6": "(k)",
-    "139": "L",
-    "13B": "L",
-    "13D": "L",
-    "13F": "L",
-    "141": "L",
-    "23D": "L",
-    "29F": "L",
-    "1D0C": "L",
-    "1E36": "L",
-    "1E38": "L",
-    "1E3A": "L",
-    "1E3C": "L",
-    "24C1": "L",
-    "2C60": "L",
-    "2C62": "L",
-    "A746": "L",
-    "A748": "L",
-    "A780": "L",
-    "FF2C": "L",
-    "13A": "l",
-    "13C": "l",
-    "13E": "l",
-    "140": "l",
-    "142": "l",
-    "19A": "l",
-    "234": "l",
-    "26B": "l",
-    "26C": "l",
-    "26D": "l",
-    "1D85": "l",
-    "1E37": "l",
-    "1E39": "l",
-    "1E3B": "l",
-    "1E3D": "l",
-    "24DB": "l",
-    "2C61": "l",
-    "A747": "l",
-    "A749": "l",
-    "A781": "l",
-    "FF4C": "l",
-    "1C7": "LJ",
-    "1EFA": "LL",
-    "1C8": "Lj",
-    "24A7": "(l)",
-    "1C9": "lj",
-    "1EFB": "ll",
-    "2AA": "ls",
-    "2AB": "lz",
-    "19C": "M",
-    "1D0D": "M",
-    "1E3E": "M",
-    "1E40": "M",
-    "1E42": "M",
-    "24C2": "M",
-    "2C6E": "M",
-    "A7FD": "M",
-    "A7FF": "M",
-    "FF2D": "M",
-    "26F": "m",
-    "270": "m",
-    "271": "m",
-    "1D6F": "m",
-    "1D86": "m",
-    "1E3F": "m",
-    "1E41": "m",
-    "1E43": "m",
-    "24DC": "m",
-    "FF4D": "m",
-    "24A8": "(m)",
-    "D1": "N",
-    "143": "N",
-    "145": "N",
-    "147": "N",
-    "14A": "N",
-    "19D": "N",
-    "1F8": "N",
-    "220": "N",
-    "274": "N",
-    "1D0E": "N",
-    "1E44": "N",
-    "1E46": "N",
-    "1E48": "N",
-    "1E4A": "N",
-    "24C3": "N",
-    "FF2E": "N",
-    "F1": "n",
-    "144": "n",
-    "146": "n",
-    "148": "n",
-    "149": "n",
-    "14B": "n",
-    "19E": "n",
-    "1F9": "n",
-    "235": "n",
-    "272": "n",
-    "273": "n",
-    "1D70": "n",
-    "1D87": "n",
-    "1E45": "n",
-    "1E47": "n",
-    "1E49": "n",
-    "1E4B": "n",
-    "207F": "n",
-    "24DD": "n",
-    "FF4E": "n",
-    "1CA": "NJ",
-    "1CB": "Nj",
-    "24A9": "(n)",
-    "1CC": "nj",
-    "D2": "O",
-    "D3": "O",
-    "D4": "O",
-    "D5": "O",
-    "D6": "O",
-    "D8": "O",
-    "14C": "O",
-    "14E": "O",
-    "150": "O",
-    "186": "O",
-    "19F": "O",
-    "1A0": "O",
-    "1D1": "O",
-    "1EA": "O",
-    "1EC": "O",
-    "1FE": "O",
-    "20C": "O",
-    "20E": "O",
-    "22A": "O",
-    "22C": "O",
-    "22E": "O",
-    "230": "O",
-    "1D0F": "O",
-    "1D10": "O",
-    "1E4C": "O",
-    "1E4E": "O",
-    "1E50": "O",
-    "1E52": "O",
-    "1ECC": "O",
-    "1ECE": "O",
-    "1ED0": "O",
-    "1ED2": "O",
-    "1ED4": "O",
-    "1ED6": "O",
-    "1ED8": "O",
-    "1EDA": "O",
-    "1EDC": "O",
-    "1EDE": "O",
-    "1EE0": "O",
-    "1EE2": "O",
-    "24C4": "O",
-    "A74A": "O",
-    "A74C": "O",
-    "FF2F": "O",
-    "F2": "o",
-    "F3": "o",
-    "F4": "o",
-    "F5": "o",
-    "F6": "o",
-    "F8": "o",
-    "14D": "o",
-    "14F": "o",
-    "151": "o",
-    "1A1": "o",
-    "1D2": "o",
-    "1EB": "o",
-    "1ED": "o",
-    "1FF": "o",
-    "20D": "o",
-    "20F": "o",
-    "22B": "o",
-    "22D": "o",
-    "22F": "o",
-    "231": "o",
-    "254": "o",
-    "275": "o",
-    "1D16": "o",
-    "1D17": "o",
-    "1D97": "o",
-    "1E4D": "o",
-    "1E4F": "o",
-    "1E51": "o",
-    "1E53": "o",
-    "1ECD": "o",
-    "1ECF": "o",
-    "1ED1": "o",
-    "1ED3": "o",
-    "1ED5": "o",
-    "1ED7": "o",
-    "1ED9": "o",
-    "1EDB": "o",
-    "1EDD": "o",
-    "1EDF": "o",
-    "1EE1": "o",
-    "1EE3": "o",
-    "2092": "o",
-    "24DE": "o",
-    "2C7A": "o",
-    "A74B": "o",
-    "A74D": "o",
-    "FF4F": "o",
-    "152": "OE",
-    "276": "OE",
-    "A74E": "OO",
-    "222": "OU",
-    "1D15": "OU",
-    "24AA": "(o)",
-    "153": "oe",
-    "1D14": "oe",
-    "A74F": "oo",
-    "223": "ou",
-    "1A4": "P",
-    "1D18": "P",
-    "1E54": "P",
-    "1E56": "P",
-    "24C5": "P",
-    "2C63": "P",
-    "A750": "P",
-    "A752": "P",
-    "A754": "P",
-    "FF30": "P",
-    "1A5": "p",
-    "1D71": "p",
-    "1D7D": "p",
-    "1D88": "p",
-    "1E55": "p",
-    "1E57": "p",
-    "24DF": "p",
-    "A751": "p",
-    "A753": "p",
-    "A755": "p",
-    "A7FC": "p",
-    "FF50": "p",
-    "24AB": "(p)",
-    "24A": "Q",
-    "24C6": "Q",
-    "A756": "Q",
-    "A758": "Q",
-    "FF31": "Q",
-    "138": "q",
-    "24B": "q",
-    "2A0": "q",
-    "24E0": "q",
-    "A757": "q",
-    "A759": "q",
-    "FF51": "q",
-    "24AC": "(q)",
-    "239": "qp",
-    "154": "R",
-    "156": "R",
-    "158": "R",
-    "210": "R",
-    "212": "R",
-    "24C": "R",
-    "280": "R",
-    "281": "R",
-    "1D19": "R",
-    "1D1A": "R",
-    "1E58": "R",
-    "1E5A": "R",
-    "1E5C": "R",
-    "1E5E": "R",
-    "24C7": "R",
-    "2C64": "R",
-    "A75A": "R",
-    "A782": "R",
-    "FF32": "R",
-    "155": "r",
-    "157": "r",
-    "159": "r",
-    "211": "r",
-    "213": "r",
-    "24D": "r",
-    "27C": "r",
-    "27D": "r",
-    "27E": "r",
-    "27F": "r",
-    "1D63": "r",
-    "1D72": "r",
-    "1D73": "r",
-    "1D89": "r",
-    "1E59": "r",
-    "1E5B": "r",
-    "1E5D": "r",
-    "1E5F": "r",
-    "24E1": "r",
-    "A75B": "r",
-    "A783": "r",
-    "FF52": "r",
-    "24AD": "(r)",
-    "15A": "S",
-    "15C": "S",
-    "15E": "S",
-    "160": "S",
-    "218": "S",
-    "1E60": "S",
-    "1E62": "S",
-    "1E64": "S",
-    "1E66": "S",
-    "1E68": "S",
-    "24C8": "S",
-    "A731": "S",
-    "A785": "S",
-    "FF33": "S",
-    "15B": "s",
-    "15D": "s",
-    "15F": "s",
-    "161": "s",
-    "17F": "s",
-    "219": "s",
-    "23F": "s",
-    "282": "s",
-    "1D74": "s",
-    "1D8A": "s",
-    "1E61": "s",
-    "1E63": "s",
-    "1E65": "s",
-    "1E67": "s",
-    "1E69": "s",
-    "1E9C": "s",
-    "1E9D": "s",
-    "24E2": "s",
-    "A784": "s",
-    "FF53": "s",
-    "1E9E": "SS",
-    "24AE": "(s)",
-    "DF": "ss",
-    "FB06": "st",
-    "162": "T",
-    "164": "T",
-    "166": "T",
-    "1AC": "T",
-    "1AE": "T",
-    "21A": "T",
-    "23E": "T",
-    "1D1B": "T",
-    "1E6A": "T",
-    "1E6C": "T",
-    "1E6E": "T",
-    "1E70": "T",
-    "24C9": "T",
-    "A786": "T",
-    "FF34": "T",
-    "163": "t",
-    "165": "t",
-    "167": "t",
-    "1AB": "t",
-    "1AD": "t",
-    "21B": "t",
-    "236": "t",
-    "287": "t",
-    "288": "t",
-    "1D75": "t",
-    "1E6B": "t",
-    "1E6D": "t",
-    "1E6F": "t",
-    "1E71": "t",
-    "1E97": "t",
-    "24E3": "t",
-    "2C66": "t",
-    "FF54": "t",
-    "DE": "TH",
-    "A766": "TH",
-    "A728": "TZ",
-    "24AF": "(t)",
-    "2A8": "tc",
-    "FE": "th",
-    "1D7A": "th",
-    "A767": "th",
-    "2A6": "ts",
-    "A729": "tz",
-    "D9": "U",
-    "DA": "U",
-    "DB": "U",
-    "DC": "U",
-    "168": "U",
-    "16A": "U",
-    "16C": "U",
-    "16E": "U",
-    "170": "U",
-    "172": "U",
-    "1AF": "U",
-    "1D3": "U",
-    "1D5": "U",
-    "1D7": "U",
-    "1D9": "U",
-    "1DB": "U",
-    "214": "U",
-    "216": "U",
-    "244": "U",
-    "1D1C": "U",
-    "1D7E": "U",
-    "1E72": "U",
-    "1E74": "U",
-    "1E76": "U",
-    "1E78": "U",
-    "1E7A": "U",
-    "1EE4": "U",
-    "1EE6": "U",
-    "1EE8": "U",
-    "1EEA": "U",
-    "1EEC": "U",
-    "1EEE": "U",
-    "1EF0": "U",
-    "24CA": "U",
-    "FF35": "U",
-    "F9": "u",
-    "FA": "u",
-    "FB": "u",
-    "FC": "u",
-    "169": "u",
-    "16B": "u",
-    "16D": "u",
-    "16F": "u",
-    "171": "u",
-    "173": "u",
-    "1B0": "u",
-    "1D4": "u",
-    "1D6": "u",
-    "1D8": "u",
-    "1DA": "u",
-    "1DC": "u",
-    "215": "u",
-    "217": "u",
-    "289": "u",
-    "1D64": "u",
-    "1D99": "u",
-    "1E73": "u",
-    "1E75": "u",
-    "1E77": "u",
-    "1E79": "u",
-    "1E7B": "u",
-    "1EE5": "u",
-    "1EE7": "u",
-    "1EE9": "u",
-    "1EEB": "u",
-    "1EED": "u",
-    "1EEF": "u",
-    "1EF1": "u",
-    "24E4": "u",
-    "FF55": "u",
-    "24B0": "(u)",
-    "1D6B": "ue",
-    "1B2": "V",
-    "245": "V",
-    "1D20": "V",
-    "1E7C": "V",
-    "1E7E": "V",
-    "1EFC": "V",
-    "24CB": "V",
-    "A75E": "V",
-    "A768": "V",
-    "FF36": "V",
-    "28B": "v",
-    "28C": "v",
-    "1D65": "v",
-    "1D8C": "v",
-    "1E7D": "v",
-    "1E7F": "v",
-    "24E5": "v",
-    "2C71": "v",
-    "2C74": "v",
-    "A75F": "v",
-    "FF56": "v",
-    "A760": "VY",
-    "24B1": "(v)",
-    "A761": "vy",
-    "174": "W",
-    "1F7": "W",
-    "1D21": "W",
-    "1E80": "W",
-    "1E82": "W",
-    "1E84": "W",
-    "1E86": "W",
-    "1E88": "W",
-    "24CC": "W",
-    "2C72": "W",
-    "FF37": "W",
-    "175": "w",
-    "1BF": "w",
-    "28D": "w",
-    "1E81": "w",
-    "1E83": "w",
-    "1E85": "w",
-    "1E87": "w",
-    "1E89": "w",
-    "1E98": "w",
-    "24E6": "w",
-    "2C73": "w",
-    "FF57": "w",
-    "24B2": "(w)",
-    "1E8A": "X",
-    "1E8C": "X",
-    "24CD": "X",
-    "FF38": "X",
-    "1D8D": "x",
-    "1E8B": "x",
-    "1E8D": "x",
-    "2093": "x",
-    "24E7": "x",
-    "FF58": "x",
-    "24B3": "(x)",
-    "DD": "Y",
-    "176": "Y",
-    "178": "Y",
-    "1B3": "Y",
-    "232": "Y",
-    "24E": "Y",
-    "28F": "Y",
-    "1E8E": "Y",
-    "1EF2": "Y",
-    "1EF4": "Y",
-    "1EF6": "Y",
-    "1EF8": "Y",
-    "1EFE": "Y",
-    "24CE": "Y",
-    "FF39": "Y",
-    "FD": "y",
-    "FF": "y",
-    "177": "y",
-    "1B4": "y",
-    "233": "y",
-    "24F": "y",
-    "28E": "y",
-    "1E8F": "y",
-    "1E99": "y",
-    "1EF3": "y",
-    "1EF5": "y",
-    "1EF7": "y",
-    "1EF9": "y",
-    "1EFF": "y",
-    "24E8": "y",
-    "FF59": "y",
-    "24B4": "(y)",
-    "179": "Z",
-    "17B": "Z",
-    "17D": "Z",
-    "1B5": "Z",
-    "21C": "Z",
-    "224": "Z",
-    "1D22": "Z",
-    "1E90": "Z",
-    "1E92": "Z",
-    "1E94": "Z",
-    "24CF": "Z",
-    "2C6B": "Z",
-    "A762": "Z",
-    "FF3A": "Z",
-    "17A": "z",
-    "17C": "z",
-    "17E": "z",
-    "1B6": "z",
-    "21D": "z",
-    "225": "z",
-    "240": "z",
-    "290": "z",
-    "291": "z",
-    "1D76": "z",
-    "1D8E": "z",
-    "1E91": "z",
-    "1E93": "z",
-    "1E95": "z",
-    "24E9": "z",
-    "2C6C": "z",
-    "A763": "z",
-    "FF5A": "z",
-    "24B5": "(z)",
-    "2070": "0",
-    "2080": "0",
-    "24EA": "0",
-    "24FF": "0",
-    "FF10": "0",
-    "B9": "1",
-    "2081": "1",
-    "2460": "1",
-    "24F5": "1",
-    "2776": "1",
-    "2780": "1",
-    "278A": "1",
-    "FF11": "1",
-    "2488": "1.",
-    "2474": "(1)",
-    "B2": "2",
-    "2082": "2",
-    "2461": "2",
-    "24F6": "2",
-    "2777": "2",
-    "2781": "2",
-    "278B": "2",
-    "FF12": "2",
-    "2489": "2.",
-    "2475": "(2)",
-    "B3": "3",
-    "2083": "3",
-    "2462": "3",
-    "24F7": "3",
-    "2778": "3",
-    "2782": "3",
-    "278C": "3",
-    "FF13": "3",
-    "248A": "3.",
-    "2476": "(3)",
-    "2074": "4",
-    "2084": "4",
-    "2463": "4",
-    "24F8": "4",
-    "2779": "4",
-    "2783": "4",
-    "278D": "4",
-    "FF14": "4",
-    "248B": "4.",
-    "2477": "(4)",
-    "2075": "5",
-    "2085": "5",
-    "2464": "5",
-    "24F9": "5",
-    "277A": "5",
-    "2784": "5",
-    "278E": "5",
-    "FF15": "5",
-    "248C": "5.",
-    "2478": "(5)",
-    "2076": "6",
-    "2086": "6",
-    "2465": "6",
-    "24FA": "6",
-    "277B": "6",
-    "2785": "6",
-    "278F": "6",
-    "FF16": "6",
-    "248D": "6.",
-    "2479": "(6)",
-    "2077": "7",
-    "2087": "7",
-    "2466": "7",
-    "24FB": "7",
-    "277C": "7",
-    "2786": "7",
-    "2790": "7",
-    "FF17": "7",
-    "248E": "7.",
-    "247A": "(7)",
-    "2078": "8",
-    "2088": "8",
-    "2467": "8",
-    "24FC": "8",
-    "277D": "8",
-    "2787": "8",
-    "2791": "8",
-    "FF18": "8",
-    "248F": "8.",
-    "247B": "(8)",
-    "2079": "9",
-    "2089": "9",
-    "2468": "9",
-    "24FD": "9",
-    "277E": "9",
-    "2788": "9",
-    "2792": "9",
-    "FF19": "9",
-    "2490": "9.",
-    "247C": "(9)",
-    "2469": "10",
-    "24FE": "10",
-    "277F": "10",
-    "2789": "10",
-    "2793": "10",
-    "2491": "10.",
-    "247D": "(10)",
-    "246A": "11",
-    "24EB": "11",
-    "2492": "11.",
-    "247E": "(11)",
-    "246B": "12",
-    "24EC": "12",
-    "2493": "12.",
-    "247F": "(12)",
-    "246C": "13",
-    "24ED": "13",
-    "2494": "13.",
-    "2480": "(13)",
-    "246D": "14",
-    "24EE": "14",
-    "2495": "14.",
-    "2481": "(14)",
-    "246E": "15",
-    "24EF": "15",
-    "2496": "15.",
-    "2482": "(15)",
-    "246F": "16",
-    "24F0": "16",
-    "2497": "16.",
-    "2483": "(16)",
-    "2470": "17",
-    "24F1": "17",
-    "2498": "17.",
-    "2484": "(17)",
-    "2471": "18",
-    "24F2": "18",
-    "2499": "18.",
-    "2485": "(18)",
-    "2472": "19",
-    "24F3": "19",
-    "249A": "19.",
-    "2486": "(19)",
-    "2473": "20",
-    "24F4": "20",
-    "249B": "20.",
-    "2487": "(20)",
-    "AB": "\"",
-    "BB": "\"",
-    "201C": "\"",
-    "201D": "\"",
-    "201E": "\"",
-    "2033": "\"",
-    "2036": "\"",
-    "275D": "\"",
-    "275E": "\"",
-    "276E": "\"",
-    "276F": "\"",
-    "FF02": "\"",
-    "2018": "'",
-    "2019": "'",
-    "201A": "'",
-    "201B": "'",
-    "2032": "'",
-    "2035": "'",
-    "2039": "'",
-    "203A": "'",
-    "275B": "'",
-    "275C": "'",
-    "FF07": "'",
-    "2010": "-",
-    "2011": "-",
-    "2012": "-",
-    "2013": "-",
-    "2014": "-",
-    "207B": "-",
-    "208B": "-",
-    "FF0D": "-",
-    "2045": "[",
-    "2772": "[",
-    "FF3B": "[",
-    "2046": "]",
-    "2773": "]",
-    "FF3D": "]",
-    "207D": "(",
-    "208D": "(",
-    "2768": "(",
-    "276A": "(",
-    "FF08": "(",
-    "2E28": "((",
-    "207E": ")",
-    "208E": ")",
-    "2769": ")",
-    "276B": ")",
-    "FF09": ")",
-    "2E29": "))",
-    "276C": "<",
-    "2770": "<",
-    "FF1C": "<",
-    "276D": ">",
-    "2771": ">",
-    "FF1E": ">",
-    "2774": "{",
-    "FF5B": "{",
-    "2775": "}",
-    "FF5D": "}",
-    "207A": "+",
-    "208A": "+",
-    "FF0B": "+",
-    "207C": "=",
-    "208C": "=",
-    "FF1D": "=",
-    "FF01": "!",
-    "203C": "!!",
-    "2049": "!?",
-    "FF03": "#",
-    "FF04": "$",
-    "2052": "%",
-    "FF05": "%",
-    "FF06": "&",
-    "204E": "*",
-    "FF0A": "*",
-    "FF0C": ",",
-    "FF0E": ".",
-    "2044": "/",
-    "FF0F": "/",
-    "FF1A": ":",
-    "204F": ";",
-    "FF1B": ";",
-    "FF1F": "?",
-    "2047": "??",
-    "2048": "?!",
-    "FF20": "@",
-    "FF3C": "\\",
-    "2038": "^",
-    "FF3E": "^",
-    "FF3F": "_",
-    "2053": "~",
-    "FF5E": "~",
+import "bytes"
+
+func FoldMap(str string) string {
+	var buffer bytes.Buffer
+	switch str {
+	case "C0", // Ã€  [LATIN CAPITAL LETTER A WITH GRAVE]
+		"C1",   // Ã  [LATIN CAPITAL LETTER A WITH ACUTE]
+		"C2",   // Ã‚  [LATIN CAPITAL LETTER A WITH CIRCUMFLEX]
+		"C3",   // Ãƒ  [LATIN CAPITAL LETTER A WITH TILDE]
+		"C4",   // Ã„  [LATIN CAPITAL LETTER A WITH DIAERESIS]
+		"C5",   // Ã…  [LATIN CAPITAL LETTER A WITH RING ABOVE]
+		"100",  // Ä€  [LATIN CAPITAL LETTER A WITH MACRON]
+		"102",  // Ä‚  [LATIN CAPITAL LETTER A WITH BREVE]
+		"104",  // Ä„  [LATIN CAPITAL LETTER A WITH OGONEK]
+		"18F",  // Æ  http://en.wikipedia.org/wiki/Schwa  [LATIN CAPITAL LETTER SCHWA]
+		"1CD",  // Ç  [LATIN CAPITAL LETTER A WITH CARON]
+		"1DE",  // Çž  [LATIN CAPITAL LETTER A WITH DIAERESIS AND MACRON]
+		"1E0",  // Ç   [LATIN CAPITAL LETTER A WITH DOT ABOVE AND MACRON]
+		"1FA",  // Çº  [LATIN CAPITAL LETTER A WITH RING ABOVE AND ACUTE]
+		"200",  // È€  [LATIN CAPITAL LETTER A WITH DOUBLE GRAVE]
+		"202",  // È‚  [LATIN CAPITAL LETTER A WITH INVERTED BREVE]
+		"226",  // È¦  [LATIN CAPITAL LETTER A WITH DOT ABOVE]
+		"23A",  // Èº  [LATIN CAPITAL LETTER A WITH STROKE]
+		"1D00", // á´€  [LATIN LETTER SMALL CAPITAL A]
+		"1E00", // á¸€  [LATIN CAPITAL LETTER A WITH RING BELOW]
+		"1EA0", // áº   [LATIN CAPITAL LETTER A WITH DOT BELOW]
+		"1EA2", // áº¢  [LATIN CAPITAL LETTER A WITH HOOK ABOVE]
+		"1EA4", // áº¤  [LATIN CAPITAL LETTER A WITH CIRCUMFLEX AND ACUTE]
+		"1EA6", // áº¦  [LATIN CAPITAL LETTER A WITH CIRCUMFLEX AND GRAVE]
+		"1EA8", // áº¨  [LATIN CAPITAL LETTER A WITH CIRCUMFLEX AND HOOK ABOVE]
+		"1EAA", // áºª  [LATIN CAPITAL LETTER A WITH CIRCUMFLEX AND TILDE]
+		"1EAC", // áº¬  [LATIN CAPITAL LETTER A WITH CIRCUMFLEX AND DOT BELOW]
+		"1EAE", // áº®  [LATIN CAPITAL LETTER A WITH BREVE AND ACUTE]
+		"1EB0", // áº°  [LATIN CAPITAL LETTER A WITH BREVE AND GRAVE]
+		"1EB2", // áº²  [LATIN CAPITAL LETTER A WITH BREVE AND HOOK ABOVE]
+		"1EB4", // áº´  [LATIN CAPITAL LETTER A WITH BREVE AND TILDE]
+		"1EB6", // áº¶  [LATIN CAPITAL LETTER A WITH BREVE AND DOT BELOW]
+		"24B6", // â’¶  [CIRCLED LATIN CAPITAL LETTER A]
+		"FF21": // ï¼¡  [FULLWIDTH LATIN CAPITAL LETTER A]
+		buffer.WriteString("A")
+		break
+	case "E0", // Ã   [LATIN SMALL LETTER A WITH GRAVE]
+		"E1",   // Ã¡  [LATIN SMALL LETTER A WITH ACUTE]
+		"E2",   // Ã¢  [LATIN SMALL LETTER A WITH CIRCUMFLEX]
+		"E3",   // Ã£  [LATIN SMALL LETTER A WITH TILDE]
+		"E4",   // Ã¤  [LATIN SMALL LETTER A WITH DIAERESIS]
+		"E5",   // Ã¥  [LATIN SMALL LETTER A WITH RING ABOVE]
+		"101",  // Ä  [LATIN SMALL LETTER A WITH MACRON]
+		"103",  // Äƒ  [LATIN SMALL LETTER A WITH BREVE]
+		"105",  // Ä…  [LATIN SMALL LETTER A WITH OGONEK]
+		"1CE",  // ÇŽ  [LATIN SMALL LETTER A WITH CARON]
+		"1DF",  // ÇŸ  [LATIN SMALL LETTER A WITH DIAERESIS AND MACRON]
+		"1E1",  // Ç¡  [LATIN SMALL LETTER A WITH DOT ABOVE AND MACRON]
+		"1FB",  // Ç»  [LATIN SMALL LETTER A WITH RING ABOVE AND ACUTE]
+		"201",  // È  [LATIN SMALL LETTER A WITH DOUBLE GRAVE]
+		"203",  // Èƒ  [LATIN SMALL LETTER A WITH INVERTED BREVE]
+		"227",  // È§  [LATIN SMALL LETTER A WITH DOT ABOVE]
+		"250",  // É  [LATIN SMALL LETTER TURNED A]
+		"259",  // É™  [LATIN SMALL LETTER SCHWA]
+		"25A",  // Éš  [LATIN SMALL LETTER SCHWA WITH HOOK]
+		"1D8F", // á¶  [LATIN SMALL LETTER A WITH RETROFLEX HOOK]
+		"1D95", // á¶•  [LATIN SMALL LETTER SCHWA WITH RETROFLEX HOOK]
+		"1E01", // áº¡  [LATIN SMALL LETTER A WITH RING BELOW]
+		"1E9A", // áº£  [LATIN SMALL LETTER A WITH RIGHT HALF RING]
+		"1EA1", // áº¡  [LATIN SMALL LETTER A WITH DOT BELOW]
+		"1EA3", // áº£  [LATIN SMALL LETTER A WITH HOOK ABOVE]
+		"1EA5", // áº¥  [LATIN SMALL LETTER A WITH CIRCUMFLEX AND ACUTE]
+		"1EA7", // áº§  [LATIN SMALL LETTER A WITH CIRCUMFLEX AND GRAVE]
+		"1EA9", // áº©  [LATIN SMALL LETTER A WITH CIRCUMFLEX AND HOOK ABOVE]
+		"1EAB", // áº«  [LATIN SMALL LETTER A WITH CIRCUMFLEX AND TILDE]
+		"1EAD", // áº­  [LATIN SMALL LETTER A WITH CIRCUMFLEX AND DOT BELOW]
+		"1EAF", // áº¯  [LATIN SMALL LETTER A WITH BREVE AND ACUTE]
+		"1EB1", // áº±  [LATIN SMALL LETTER A WITH BREVE AND GRAVE]
+		"1EB3", // áº³  [LATIN SMALL LETTER A WITH BREVE AND HOOK ABOVE]
+		"1EB5", // áºµ  [LATIN SMALL LETTER A WITH BREVE AND TILDE]
+		"1EB7", // áº·  [LATIN SMALL LETTER A WITH BREVE AND DOT BELOW]
+		"2090", // â‚  [LATIN SUBSCRIPT SMALL LETTER A]
+		"2094", // â‚”  [LATIN SUBSCRIPT SMALL LETTER SCHWA]
+		"24D0", // â“  [CIRCLED LATIN SMALL LETTER A]
+		"2C65", // â±¥  [LATIN SMALL LETTER A WITH STROKE]
+		"2C6F", // â±¯  [LATIN CAPITAL LETTER TURNED A]
+		"FF41": // ï½  [FULLWIDTH LATIN SMALL LETTER A]
+		buffer.WriteString("a")
+		break
+	case "A732": // êœ²  [LATIN CAPITAL LETTER AA]
+		buffer.WriteString("A")
+		buffer.WriteString("A")
+		break
+	case "C6", // Ã†  [LATIN CAPITAL LETTER AE]
+		"1E2",  // Ç¢  [LATIN CAPITAL LETTER AE WITH MACRON]
+		"1FC",  // Ç¼  [LATIN CAPITAL LETTER AE WITH ACUTE]
+		"1D01": // á´  [LATIN LETTER SMALL CAPITAL AE]
+		buffer.WriteString("A")
+		buffer.WriteString("E")
+		break
+	case "A734": // êœ´  [LATIN CAPITAL LETTER AO]
+		buffer.WriteString("A")
+		buffer.WriteString("O")
+		break
+	case "A736": // êœ¶  [LATIN CAPITAL LETTER AU]
+		buffer.WriteString("A")
+		buffer.WriteString("U")
+		break
+	case "A738", // êœ¸  [LATIN CAPITAL LETTER AV]
+		"A73A": // êœº  [LATIN CAPITAL LETTER AV WITH HORIZONTAL BAR]
+		buffer.WriteString("A")
+		buffer.WriteString("V")
+		break
+	case "A73C": // êœ¼  [LATIN CAPITAL LETTER AY]
+		buffer.WriteString("A")
+		buffer.WriteString("Y")
+		break
+	case "249C": // â’œ  [PARENTHESIZED LATIN SMALL LETTER A]
+		buffer.WriteString("(")
+		buffer.WriteString("a")
+		buffer.WriteString(")")
+		break
+	case "A733": // êœ³  [LATIN SMALL LETTER AA]
+		buffer.WriteString("a")
+		buffer.WriteString("a")
+		break
+	case "E6", // Ã¦  [LATIN SMALL LETTER AE]
+		"1E3",  // Ç£  [LATIN SMALL LETTER AE WITH MACRON]
+		"1FD",  // Ç½  [LATIN SMALL LETTER AE WITH ACUTE]
+		"1D02": // á´‚  [LATIN SMALL LETTER TURNED AE]
+		buffer.WriteString("a")
+		buffer.WriteString("e")
+		break
+	case "A735": // êœµ  [LATIN SMALL LETTER AO]
+		buffer.WriteString("a")
+		buffer.WriteString("o")
+		break
+	case "A737": // êœ·  [LATIN SMALL LETTER AU]
+		buffer.WriteString("a")
+		buffer.WriteString("u")
+		break
+	case "A739", // êœ¹  [LATIN SMALL LETTER AV]
+		"A73B": // êœ»  [LATIN SMALL LETTER AV WITH HORIZONTAL BAR]
+		buffer.WriteString("a")
+		buffer.WriteString("v")
+		break
+	case "A73D": // êœ½  [LATIN SMALL LETTER AY]
+		buffer.WriteString("a")
+		buffer.WriteString("y")
+		break
+	case "181", // Æ  [LATIN CAPITAL LETTER B WITH HOOK]
+		"182",  // Æ‚  [LATIN CAPITAL LETTER B WITH TOPBAR]
+		"243",  // Éƒ  [LATIN CAPITAL LETTER B WITH STROKE]
+		"299",  // Ê™  [LATIN LETTER SMALL CAPITAL B]
+		"1D03", // á´ƒ  [LATIN LETTER SMALL CAPITAL BARRED B]
+		"1E02", // á¸‚  [LATIN CAPITAL LETTER B WITH DOT ABOVE]
+		"1E04", // á¸„  [LATIN CAPITAL LETTER B WITH DOT BELOW]
+		"1E06", // á¸†  [LATIN CAPITAL LETTER B WITH LINE BELOW]
+		"24B7", // â’·  [CIRCLED LATIN CAPITAL LETTER B]
+		"FF22": // ï¼¢  [FULLWIDTH LATIN CAPITAL LETTER B]
+		buffer.WriteString("B")
+		break
+	case "180", // Æ€  [LATIN SMALL LETTER B WITH STROKE]
+		"183",  // Æƒ  [LATIN SMALL LETTER B WITH TOPBAR]
+		"253",  // É“  [LATIN SMALL LETTER B WITH HOOK]
+		"1D6C", // áµ¬  [LATIN SMALL LETTER B WITH MIDDLE TILDE]
+		"1D80", // á¶€  [LATIN SMALL LETTER B WITH PALATAL HOOK]
+		"1E03", // á¸ƒ  [LATIN SMALL LETTER B WITH DOT ABOVE]
+		"1E05", // á¸…  [LATIN SMALL LETTER B WITH DOT BELOW]
+		"1E07", // á¸‡  [LATIN SMALL LETTER B WITH LINE BELOW]
+		"24D1", // â“‘  [CIRCLED LATIN SMALL LETTER B]
+		"FF42": // ï½‚  [FULLWIDTH LATIN SMALL LETTER B]
+		buffer.WriteString("b")
+		break
+	case "249D": // â’  [PARENTHESIZED LATIN SMALL LETTER B]
+		buffer.WriteString("(")
+		buffer.WriteString("b")
+		buffer.WriteString(")")
+		break
+	case "C7", // Ã‡  [LATIN CAPITAL LETTER C WITH CEDILLA]
+		"106",  // Ä†  [LATIN CAPITAL LETTER C WITH ACUTE]
+		"108",  // Äˆ  [LATIN CAPITAL LETTER C WITH CIRCUMFLEX]
+		"10A",  // ÄŠ  [LATIN CAPITAL LETTER C WITH DOT ABOVE]
+		"10C",  // ÄŒ  [LATIN CAPITAL LETTER C WITH CARON]
+		"187",  // Æ‡  [LATIN CAPITAL LETTER C WITH HOOK]
+		"23B",  // È»  [LATIN CAPITAL LETTER C WITH STROKE]
+		"297",  // Ê—  [LATIN LETTER STRETCHED C]
+		"1D04", // á´„  [LATIN LETTER SMALL CAPITAL C]
+		"1E08", // á¸ˆ  [LATIN CAPITAL LETTER C WITH CEDILLA AND ACUTE]
+		"24B8", // â’¸  [CIRCLED LATIN CAPITAL LETTER C]
+		"FF23": // ï¼£  [FULLWIDTH LATIN CAPITAL LETTER C]
+		buffer.WriteString("C")
+		break
+	case "E7", // Ã§  [LATIN SMALL LETTER C WITH CEDILLA]
+		"107",  // Ä‡  [LATIN SMALL LETTER C WITH ACUTE]
+		"109",  // Ä‰  [LATIN SMALL LETTER C WITH CIRCUMFLEX]
+		"10B",  // Ä‹  [LATIN SMALL LETTER C WITH DOT ABOVE]
+		"10D",  // Ä  [LATIN SMALL LETTER C WITH CARON]
+		"188",  // Æˆ  [LATIN SMALL LETTER C WITH HOOK]
+		"23C",  // È¼  [LATIN SMALL LETTER C WITH STROKE]
+		"255",  // É•  [LATIN SMALL LETTER C WITH CURL]
+		"1E09", // á¸‰  [LATIN SMALL LETTER C WITH CEDILLA AND ACUTE]
+		"2184", // â†„  [LATIN SMALL LETTER REVERSED C]
+		"24D2", // â“’  [CIRCLED LATIN SMALL LETTER C]
+		"A73E", // êœ¾  [LATIN CAPITAL LETTER REVERSED C WITH DOT]
+		"A73F", // êœ¿  [LATIN SMALL LETTER REVERSED C WITH DOT]
+		"FF43": // ï½ƒ  [FULLWIDTH LATIN SMALL LETTER C]
+		buffer.WriteString("c")
+		break
+	case "249E": // â’ž  [PARENTHESIZED LATIN SMALL LETTER C]
+		buffer.WriteString("(")
+		buffer.WriteString("c")
+		buffer.WriteString(")")
+		break
+	case "D0", // Ã  [LATIN CAPITAL LETTER ETH]
+		"10E",  // ÄŽ  [LATIN CAPITAL LETTER D WITH CARON]
+		"110",  // Ä  [LATIN CAPITAL LETTER D WITH STROKE]
+		"189",  // Æ‰  [LATIN CAPITAL LETTER AFRICAN D]
+		"18A",  // ÆŠ  [LATIN CAPITAL LETTER D WITH HOOK]
+		"18B",  // Æ‹  [LATIN CAPITAL LETTER D WITH TOPBAR]
+		"1D05", // á´…  [LATIN LETTER SMALL CAPITAL D]
+		"1D06", // á´†  [LATIN LETTER SMALL CAPITAL ETH]
+		"1E0A", // á¸Š  [LATIN CAPITAL LETTER D WITH DOT ABOVE]
+		"1E0C", // á¸Œ  [LATIN CAPITAL LETTER D WITH DOT BELOW]
+		"1E0E", // á¸Ž  [LATIN CAPITAL LETTER D WITH LINE BELOW]
+		"1E10", // á¸  [LATIN CAPITAL LETTER D WITH CEDILLA]
+		"1E12", // á¸’  [LATIN CAPITAL LETTER D WITH CIRCUMFLEX BELOW]
+		"24B9", // â’¹  [CIRCLED LATIN CAPITAL LETTER D]
+		"A779", // ê¹  [LATIN CAPITAL LETTER INSULAR D]
+		"FF24": // ï¼¤  [FULLWIDTH LATIN CAPITAL LETTER D]
+		buffer.WriteString("D")
+		break
+	case "F0", // Ã°  [LATIN SMALL LETTER ETH]
+		"10F",  // Ä  [LATIN SMALL LETTER D WITH CARON]
+		"111",  // Ä‘  [LATIN SMALL LETTER D WITH STROKE]
+		"18C",  // ÆŒ  [LATIN SMALL LETTER D WITH TOPBAR]
+		"221",  // È¡  [LATIN SMALL LETTER D WITH CURL]
+		"256",  // É–  [LATIN SMALL LETTER D WITH TAIL]
+		"257",  // É—  [LATIN SMALL LETTER D WITH HOOK]
+		"1D6D", // áµ­  [LATIN SMALL LETTER D WITH MIDDLE TILDE]
+		"1D81", // á¶  [LATIN SMALL LETTER D WITH PALATAL HOOK]
+		"1D91", // á¶‘  [LATIN SMALL LETTER D WITH HOOK AND TAIL]
+		"1E0B", // á¸‹  [LATIN SMALL LETTER D WITH DOT ABOVE]
+		"1E0D", // á¸  [LATIN SMALL LETTER D WITH DOT BELOW]
+		"1E0F", // á¸  [LATIN SMALL LETTER D WITH LINE BELOW]
+		"1E11", // á¸‘  [LATIN SMALL LETTER D WITH CEDILLA]
+		"1E13", // á¸“  [LATIN SMALL LETTER D WITH CIRCUMFLEX BELOW]
+		"24D3", // â““  [CIRCLED LATIN SMALL LETTER D]
+		"A77A", // êº  [LATIN SMALL LETTER INSULAR D]
+		"FF44": // ï½„  [FULLWIDTH LATIN SMALL LETTER D]
+		buffer.WriteString("d")
+		break
+	case "1C4", // Ç„  [LATIN CAPITAL LETTER DZ WITH CARON]
+		"1F1": // Ç±  [LATIN CAPITAL LETTER DZ]
+		buffer.WriteString("D")
+		buffer.WriteString("Z")
+		break
+	case "1C5", // Ç…  [LATIN CAPITAL LETTER D WITH SMALL LETTER Z WITH CARON]
+		"1F2": // Ç²  [LATIN CAPITAL LETTER D WITH SMALL LETTER Z]
+		buffer.WriteString("D")
+		buffer.WriteString("z")
+		break
+	case "249F": // â’Ÿ  [PARENTHESIZED LATIN SMALL LETTER D]
+		buffer.WriteString("(")
+		buffer.WriteString("d")
+		buffer.WriteString(")")
+		break
+	case "238": // È¸  [LATIN SMALL LETTER DB DIGRAPH]
+		buffer.WriteString("d")
+		buffer.WriteString("b")
+		break
+	case "1C6", // Ç†  [LATIN SMALL LETTER DZ WITH CARON]
+		"1F3", // Ç³  [LATIN SMALL LETTER DZ]
+		"2A3", // Ê£  [LATIN SMALL LETTER DZ DIGRAPH]
+		"2A5": // Ê¥  [LATIN SMALL LETTER DZ DIGRAPH WITH CURL]
+		buffer.WriteString("d")
+		buffer.WriteString("z")
+		break
+	case "C8", // Ãˆ  [LATIN CAPITAL LETTER E WITH GRAVE]
+		"C9",   // Ã‰  [LATIN CAPITAL LETTER E WITH ACUTE]
+		"CA",   // ÃŠ  [LATIN CAPITAL LETTER E WITH CIRCUMFLEX]
+		"CB",   // Ã‹  [LATIN CAPITAL LETTER E WITH DIAERESIS]
+		"112",  // Ä’  [LATIN CAPITAL LETTER E WITH MACRON]
+		"114",  // Ä”  [LATIN CAPITAL LETTER E WITH BREVE]
+		"116",  // Ä–  [LATIN CAPITAL LETTER E WITH DOT ABOVE]
+		"118",  // Ä˜  [LATIN CAPITAL LETTER E WITH OGONEK]
+		"11A",  // Äš  [LATIN CAPITAL LETTER E WITH CARON]
+		"18E",  // ÆŽ  [LATIN CAPITAL LETTER REVERSED E]
+		"190",  // Æ  [LATIN CAPITAL LETTER OPEN E]
+		"204",  // È„  [LATIN CAPITAL LETTER E WITH DOUBLE GRAVE]
+		"206",  // È†  [LATIN CAPITAL LETTER E WITH INVERTED BREVE]
+		"228",  // È¨  [LATIN CAPITAL LETTER E WITH CEDILLA]
+		"246",  // É†  [LATIN CAPITAL LETTER E WITH STROKE]
+		"1D07", // á´‡  [LATIN LETTER SMALL CAPITAL E]
+		"1E14", // á¸”  [LATIN CAPITAL LETTER E WITH MACRON AND GRAVE]
+		"1E16", // á¸–  [LATIN CAPITAL LETTER E WITH MACRON AND ACUTE]
+		"1E18", // á¸˜  [LATIN CAPITAL LETTER E WITH CIRCUMFLEX BELOW]
+		"1E1A", // á¸š  [LATIN CAPITAL LETTER E WITH TILDE BELOW]
+		"1E1C", // á¸œ  [LATIN CAPITAL LETTER E WITH CEDILLA AND BREVE]
+		"1EB8", // áº¸  [LATIN CAPITAL LETTER E WITH DOT BELOW]
+		"1EBA", // áºº  [LATIN CAPITAL LETTER E WITH HOOK ABOVE]
+		"1EBC", // áº¼  [LATIN CAPITAL LETTER E WITH TILDE]
+		"1EBE", // áº¾  [LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND ACUTE]
+		"1EC0", // á»€  [LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND GRAVE]
+		"1EC2", // á»‚  [LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND HOOK ABOVE]
+		"1EC4", // á»„  [LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND TILDE]
+		"1EC6", // á»†  [LATIN CAPITAL LETTER E WITH CIRCUMFLEX AND DOT BELOW]
+		"24BA", // â’º  [CIRCLED LATIN CAPITAL LETTER E]
+		"2C7B", // â±»  [LATIN LETTER SMALL CAPITAL TURNED E]
+		"FF25": // ï¼¥  [FULLWIDTH LATIN CAPITAL LETTER E]
+		buffer.WriteString("E")
+		break
+	case "E8", // Ã¨  [LATIN SMALL LETTER E WITH GRAVE]
+		"E9",   // Ã©  [LATIN SMALL LETTER E WITH ACUTE]
+		"EA",   // Ãª  [LATIN SMALL LETTER E WITH CIRCUMFLEX]
+		"EB",   // Ã«  [LATIN SMALL LETTER E WITH DIAERESIS]
+		"113",  // Ä“  [LATIN SMALL LETTER E WITH MACRON]
+		"115",  // Ä•  [LATIN SMALL LETTER E WITH BREVE]
+		"117",  // Ä—  [LATIN SMALL LETTER E WITH DOT ABOVE]
+		"119",  // Ä™  [LATIN SMALL LETTER E WITH OGONEK]
+		"11B",  // Ä›  [LATIN SMALL LETTER E WITH CARON]
+		"1DD",  // Ç  [LATIN SMALL LETTER TURNED E]
+		"205",  // È…  [LATIN SMALL LETTER E WITH DOUBLE GRAVE]
+		"207",  // È‡  [LATIN SMALL LETTER E WITH INVERTED BREVE]
+		"229",  // È©  [LATIN SMALL LETTER E WITH CEDILLA]
+		"247",  // É‡  [LATIN SMALL LETTER E WITH STROKE]
+		"258",  // É˜  [LATIN SMALL LETTER REVERSED E]
+		"25B",  // É›  [LATIN SMALL LETTER OPEN E]
+		"25C",  // Éœ  [LATIN SMALL LETTER REVERSED OPEN E]
+		"25D",  // É  [LATIN SMALL LETTER REVERSED OPEN E WITH HOOK]
+		"25E",  // Éž  [LATIN SMALL LETTER CLOSED REVERSED OPEN E]
+		"29A",  // Êš  [LATIN SMALL LETTER CLOSED OPEN E]
+		"1D08", // á´ˆ  [LATIN SMALL LETTER TURNED OPEN E]
+		"1D92", // á¶’  [LATIN SMALL LETTER E WITH RETROFLEX HOOK]
+		"1D93", // á¶“  [LATIN SMALL LETTER OPEN E WITH RETROFLEX HOOK]
+		"1D94", // á¶”  [LATIN SMALL LETTER REVERSED OPEN E WITH RETROFLEX HOOK]
+		"1E15", // á¸•  [LATIN SMALL LETTER E WITH MACRON AND GRAVE]
+		"1E17", // á¸—  [LATIN SMALL LETTER E WITH MACRON AND ACUTE]
+		"1E19", // á¸™  [LATIN SMALL LETTER E WITH CIRCUMFLEX BELOW]
+		"1E1B", // á¸›  [LATIN SMALL LETTER E WITH TILDE BELOW]
+		"1E1D", // á¸  [LATIN SMALL LETTER E WITH CEDILLA AND BREVE]
+		"1EB9", // áº¹  [LATIN SMALL LETTER E WITH DOT BELOW]
+		"1EBB", // áº»  [LATIN SMALL LETTER E WITH HOOK ABOVE]
+		"1EBD", // áº½  [LATIN SMALL LETTER E WITH TILDE]
+		"1EBF", // áº¿  [LATIN SMALL LETTER E WITH CIRCUMFLEX AND ACUTE]
+		"1EC1", // á»  [LATIN SMALL LETTER E WITH CIRCUMFLEX AND GRAVE]
+		"1EC3", // á»ƒ  [LATIN SMALL LETTER E WITH CIRCUMFLEX AND HOOK ABOVE]
+		"1EC5", // á»…  [LATIN SMALL LETTER E WITH CIRCUMFLEX AND TILDE]
+		"1EC7", // á»‡  [LATIN SMALL LETTER E WITH CIRCUMFLEX AND DOT BELOW]
+		"2091", // â‚‘  [LATIN SUBSCRIPT SMALL LETTER E]
+		"24D4", // â“”  [CIRCLED LATIN SMALL LETTER E]
+		"2C78", // â±¸  [LATIN SMALL LETTER E WITH NOTCH]
+		"FF45": // ï½…  [FULLWIDTH LATIN SMALL LETTER E]
+		buffer.WriteString("e")
+		break
+	case "24A0": // â’   [PARENTHESIZED LATIN SMALL LETTER E]
+		buffer.WriteString("(")
+		buffer.WriteString("e")
+		buffer.WriteString(")")
+		break
+	case "191", // Æ‘  [LATIN CAPITAL LETTER F WITH HOOK]
+		"1E1E", // á¸ž  [LATIN CAPITAL LETTER F WITH DOT ABOVE]
+		"24BB", // â’»  [CIRCLED LATIN CAPITAL LETTER F]
+		"A730", // êœ°  [LATIN LETTER SMALL CAPITAL F]
+		"A77B", // ê»  [LATIN CAPITAL LETTER INSULAR F]
+		"A7FB", // êŸ»  [LATIN EPIGRAPHIC LETTER REVERSED F]
+		"FF26": // ï¼¦  [FULLWIDTH LATIN CAPITAL LETTER F]
+		buffer.WriteString("F")
+		break
+	case "192", // Æ’  [LATIN SMALL LETTER F WITH HOOK]
+		"1D6E", // áµ®  [LATIN SMALL LETTER F WITH MIDDLE TILDE]
+		"1D82", // á¶‚  [LATIN SMALL LETTER F WITH PALATAL HOOK]
+		"1E1F", // á¸Ÿ  [LATIN SMALL LETTER F WITH DOT ABOVE]
+		"1E9B", // áº›  [LATIN SMALL LETTER LONG S WITH DOT ABOVE]
+		"24D5", // â“•  [CIRCLED LATIN SMALL LETTER F]
+		"A77C", // ê¼  [LATIN SMALL LETTER INSULAR F]
+		"FF46": // ï½†  [FULLWIDTH LATIN SMALL LETTER F]
+		buffer.WriteString("f")
+		break
+	case "24A1": // â’¡  [PARENTHESIZED LATIN SMALL LETTER F]
+		buffer.WriteString("(")
+		buffer.WriteString("f")
+		buffer.WriteString(")")
+		break
+	case "FB00": // ï¬€  [LATIN SMALL LIGATURE FF]
+		buffer.WriteString("f")
+		buffer.WriteString("f")
+		break
+	case "FB03": // ï¬ƒ  [LATIN SMALL LIGATURE FFI]
+		buffer.WriteString("f")
+		buffer.WriteString("f")
+		buffer.WriteString("i")
+		break
+	case "FB04": // ï¬„  [LATIN SMALL LIGATURE FFL]
+		buffer.WriteString("f")
+		buffer.WriteString("f")
+		buffer.WriteString("l")
+		break
+	case "FB01": // ï¬  [LATIN SMALL LIGATURE FI]
+		buffer.WriteString("f")
+		buffer.WriteString("i")
+		break
+	case "FB02": // ï¬‚  [LATIN SMALL LIGATURE FL]
+		buffer.WriteString("f")
+		buffer.WriteString("l")
+		break
+	case "11C", // Äœ  [LATIN CAPITAL LETTER G WITH CIRCUMFLEX]
+		"11E",  // Äž  [LATIN CAPITAL LETTER G WITH BREVE]
+		"120",  // Ä   [LATIN CAPITAL LETTER G WITH DOT ABOVE]
+		"122",  // Ä¢  [LATIN CAPITAL LETTER G WITH CEDILLA]
+		"193",  // Æ“  [LATIN CAPITAL LETTER G WITH HOOK]
+		"1E4",  // Ç¤  [LATIN CAPITAL LETTER G WITH STROKE]
+		"1E5",  // Ç¥  [LATIN SMALL LETTER G WITH STROKE]
+		"1E6",  // Ç¦  [LATIN CAPITAL LETTER G WITH CARON]
+		"1E7",  // Ç§  [LATIN SMALL LETTER G WITH CARON]
+		"1F4",  // Ç´  [LATIN CAPITAL LETTER G WITH ACUTE]
+		"262",  // É¢  [LATIN LETTER SMALL CAPITAL G]
+		"29B",  // Ê›  [LATIN LETTER SMALL CAPITAL G WITH HOOK]
+		"1E20", // á¸   [LATIN CAPITAL LETTER G WITH MACRON]
+		"24BC", // â’¼  [CIRCLED LATIN CAPITAL LETTER G]
+		"A77D", // ê½  [LATIN CAPITAL LETTER INSULAR G]
+		"A77E", // ê¾  [LATIN CAPITAL LETTER TURNED INSULAR G]
+		"FF27": // ï¼§  [FULLWIDTH LATIN CAPITAL LETTER G]
+		buffer.WriteString("G")
+		break
+	case "11D", // Ä  [LATIN SMALL LETTER G WITH CIRCUMFLEX]
+		"11F",  // ÄŸ  [LATIN SMALL LETTER G WITH BREVE]
+		"121",  // Ä¡  [LATIN SMALL LETTER G WITH DOT ABOVE]
+		"123",  // Ä£  [LATIN SMALL LETTER G WITH CEDILLA]
+		"1F5",  // Çµ  [LATIN SMALL LETTER G WITH ACUTE]
+		"260",  // É   [LATIN SMALL LETTER G WITH HOOK]
+		"261",  // É¡  [LATIN SMALL LETTER SCRIPT G]
+		"1D77", // áµ·  [LATIN SMALL LETTER TURNED G]
+		"1D79", // áµ¹  [LATIN SMALL LETTER INSULAR G]
+		"1D83", // á¶ƒ  [LATIN SMALL LETTER G WITH PALATAL HOOK]
+		"1E21", // á¸¡  [LATIN SMALL LETTER G WITH MACRON]
+		"24D6", // â“–  [CIRCLED LATIN SMALL LETTER G]
+		"A77F", // ê¿  [LATIN SMALL LETTER TURNED INSULAR G]
+		"FF47": // ï½‡  [FULLWIDTH LATIN SMALL LETTER G]
+		buffer.WriteString("g")
+		break
+	case "24A2": // â’¢  [PARENTHESIZED LATIN SMALL LETTER G]
+		buffer.WriteString("(")
+		buffer.WriteString("g")
+		buffer.WriteString(")")
+		break
+	case "124", // Ä¤  [LATIN CAPITAL LETTER H WITH CIRCUMFLEX]
+		"126",  // Ä¦  [LATIN CAPITAL LETTER H WITH STROKE]
+		"21E",  // Èž  [LATIN CAPITAL LETTER H WITH CARON]
+		"29C",  // Êœ  [LATIN LETTER SMALL CAPITAL H]
+		"1E22", // á¸¢  [LATIN CAPITAL LETTER H WITH DOT ABOVE]
+		"1E24", // á¸¤  [LATIN CAPITAL LETTER H WITH DOT BELOW]
+		"1E26", // á¸¦  [LATIN CAPITAL LETTER H WITH DIAERESIS]
+		"1E28", // á¸¨  [LATIN CAPITAL LETTER H WITH CEDILLA]
+		"1E2A", // á¸ª  [LATIN CAPITAL LETTER H WITH BREVE BELOW]
+		"24BD", // â’½  [CIRCLED LATIN CAPITAL LETTER H]
+		"2C67", // â±§  [LATIN CAPITAL LETTER H WITH DESCENDER]
+		"2C75", // â±µ  [LATIN CAPITAL LETTER HALF H]
+		"FF28": // ï¼¨  [FULLWIDTH LATIN CAPITAL LETTER H]
+		buffer.WriteString("H")
+		break
+	case "125", // Ä¥  [LATIN SMALL LETTER H WITH CIRCUMFLEX]
+		"127",  // Ä§  [LATIN SMALL LETTER H WITH STROKE]
+		"21F",  // ÈŸ  [LATIN SMALL LETTER H WITH CARON]
+		"265",  // É¥  [LATIN SMALL LETTER TURNED H]
+		"266",  // É¦  [LATIN SMALL LETTER H WITH HOOK]
+		"2AE",  // Ê®  [LATIN SMALL LETTER TURNED H WITH FISHHOOK]
+		"2AF",  // Ê¯  [LATIN SMALL LETTER TURNED H WITH FISHHOOK AND TAIL]
+		"1E23", // á¸£  [LATIN SMALL LETTER H WITH DOT ABOVE]
+		"1E25", // á¸¥  [LATIN SMALL LETTER H WITH DOT BELOW]
+		"1E27", // á¸§  [LATIN SMALL LETTER H WITH DIAERESIS]
+		"1E29", // á¸©  [LATIN SMALL LETTER H WITH CEDILLA]
+		"1E2B", // á¸«  [LATIN SMALL LETTER H WITH BREVE BELOW]
+		"1E96", // áº–  [LATIN SMALL LETTER H WITH LINE BELOW]
+		"24D7", // â“—  [CIRCLED LATIN SMALL LETTER H]
+		"2C68", // â±¨  [LATIN SMALL LETTER H WITH DESCENDER]
+		"2C76", // â±¶  [LATIN SMALL LETTER HALF H]
+		"FF48": // ï½ˆ  [FULLWIDTH LATIN SMALL LETTER H]
+		buffer.WriteString("h")
+		break
+	case "1F6": // Ç¶  http://en.wikipedia.org/wiki/Hwair  [LATIN CAPITAL LETTER HWAIR]
+		buffer.WriteString("H")
+		buffer.WriteString("V")
+		break
+	case "24A3": // â’£  [PARENTHESIZED LATIN SMALL LETTER H]
+		buffer.WriteString("(")
+		buffer.WriteString("h")
+		buffer.WriteString(")")
+		break
+	case "195": // Æ•  [LATIN SMALL LETTER HV]
+		buffer.WriteString("h")
+		buffer.WriteString("v")
+		break
+	case "CC", // ÃŒ  [LATIN CAPITAL LETTER I WITH GRAVE]
+		"CD",   // Ã  [LATIN CAPITAL LETTER I WITH ACUTE]
+		"CE",   // ÃŽ  [LATIN CAPITAL LETTER I WITH CIRCUMFLEX]
+		"CF",   // Ã  [LATIN CAPITAL LETTER I WITH DIAERESIS]
+		"128",  // Ä¨  [LATIN CAPITAL LETTER I WITH TILDE]
+		"12A",  // Äª  [LATIN CAPITAL LETTER I WITH MACRON]
+		"12C",  // Ä¬  [LATIN CAPITAL LETTER I WITH BREVE]
+		"12E",  // Ä®  [LATIN CAPITAL LETTER I WITH OGONEK]
+		"130",  // Ä°  [LATIN CAPITAL LETTER I WITH DOT ABOVE]
+		"196",  // Æ–  [LATIN CAPITAL LETTER IOTA]
+		"197",  // Æ—  [LATIN CAPITAL LETTER I WITH STROKE]
+		"1CF",  // Ç  [LATIN CAPITAL LETTER I WITH CARON]
+		"208",  // Èˆ  [LATIN CAPITAL LETTER I WITH DOUBLE GRAVE]
+		"20A",  // ÈŠ  [LATIN CAPITAL LETTER I WITH INVERTED BREVE]
+		"26A",  // Éª  [LATIN LETTER SMALL CAPITAL I]
+		"1D7B", // áµ»  [LATIN SMALL CAPITAL LETTER I WITH STROKE]
+		"1E2C", // á¸¬  [LATIN CAPITAL LETTER I WITH TILDE BELOW]
+		"1E2E", // á¸®  [LATIN CAPITAL LETTER I WITH DIAERESIS AND ACUTE]
+		"1EC8", // á»ˆ  [LATIN CAPITAL LETTER I WITH HOOK ABOVE]
+		"1ECA", // á»Š  [LATIN CAPITAL LETTER I WITH DOT BELOW]
+		"24BE", // â’¾  [CIRCLED LATIN CAPITAL LETTER I]
+		"A7FE", // êŸ¾  [LATIN EPIGRAPHIC LETTER I LONGA]
+		"FF29": // ï¼©  [FULLWIDTH LATIN CAPITAL LETTER I]
+		buffer.WriteString("I")
+		break
+	case "EC", // Ã¬  [LATIN SMALL LETTER I WITH GRAVE]
+		"ED",   // Ã­  [LATIN SMALL LETTER I WITH ACUTE]
+		"EE",   // Ã®  [LATIN SMALL LETTER I WITH CIRCUMFLEX]
+		"EF",   // Ã¯  [LATIN SMALL LETTER I WITH DIAERESIS]
+		"129",  // Ä©  [LATIN SMALL LETTER I WITH TILDE]
+		"12B",  // Ä«  [LATIN SMALL LETTER I WITH MACRON]
+		"12D",  // Ä­  [LATIN SMALL LETTER I WITH BREVE]
+		"12F",  // Ä¯  [LATIN SMALL LETTER I WITH OGONEK]
+		"131",  // Ä±  [LATIN SMALL LETTER DOTLESS I]
+		"1D0",  // Ç  [LATIN SMALL LETTER I WITH CARON]
+		"209",  // È‰  [LATIN SMALL LETTER I WITH DOUBLE GRAVE]
+		"20B",  // È‹  [LATIN SMALL LETTER I WITH INVERTED BREVE]
+		"268",  // É¨  [LATIN SMALL LETTER I WITH STROKE]
+		"1D09", // á´‰  [LATIN SMALL LETTER TURNED I]
+		"1D62", // áµ¢  [LATIN SUBSCRIPT SMALL LETTER I]
+		"1D7C", // áµ¼  [LATIN SMALL LETTER IOTA WITH STROKE]
+		"1D96", // á¶–  [LATIN SMALL LETTER I WITH RETROFLEX HOOK]
+		"1E2D", // á¸­  [LATIN SMALL LETTER I WITH TILDE BELOW]
+		"1E2F", // á¸¯  [LATIN SMALL LETTER I WITH DIAERESIS AND ACUTE]
+		"1EC9", // á»‰  [LATIN SMALL LETTER I WITH HOOK ABOVE]
+		"1ECB", // á»‹  [LATIN SMALL LETTER I WITH DOT BELOW]
+		"2071", // â±  [SUPERSCRIPT LATIN SMALL LETTER I]
+		"24D8", // â“˜  [CIRCLED LATIN SMALL LETTER I]
+		"FF49": // ï½‰  [FULLWIDTH LATIN SMALL LETTER I]
+		buffer.WriteString("i")
+		break
+	case "132": // Ä²  [LATIN CAPITAL LIGATURE IJ]
+		buffer.WriteString("I")
+		buffer.WriteString("J")
+		break
+	case "24A4": // â’¤  [PARENTHESIZED LATIN SMALL LETTER I]
+		buffer.WriteString("(")
+		buffer.WriteString("i")
+		buffer.WriteString(")")
+		break
+	case "133": // Ä³  [LATIN SMALL LIGATURE IJ]
+		buffer.WriteString("i")
+		buffer.WriteString("j")
+		break
+	case "134", // Ä´  [LATIN CAPITAL LETTER J WITH CIRCUMFLEX]
+		"248",  // Éˆ  [LATIN CAPITAL LETTER J WITH STROKE]
+		"1D0A", // á´Š  [LATIN LETTER SMALL CAPITAL J]
+		"24BF", // â’¿  [CIRCLED LATIN CAPITAL LETTER J]
+		"FF2A": // ï¼ª  [FULLWIDTH LATIN CAPITAL LETTER J]
+		buffer.WriteString("J")
+		break
+	case "135", // Äµ  [LATIN SMALL LETTER J WITH CIRCUMFLEX]
+		"1F0",  // Ç°  [LATIN SMALL LETTER J WITH CARON]
+		"237",  // È·  [LATIN SMALL LETTER DOTLESS J]
+		"249",  // É‰  [LATIN SMALL LETTER J WITH STROKE]
+		"25F",  // ÉŸ  [LATIN SMALL LETTER DOTLESS J WITH STROKE]
+		"284",  // Ê„  [LATIN SMALL LETTER DOTLESS J WITH STROKE AND HOOK]
+		"29D",  // Ê  [LATIN SMALL LETTER J WITH CROSSED-TAIL]
+		"24D9", // â“™  [CIRCLED LATIN SMALL LETTER J]
+		"2C7C", // â±¼  [LATIN SUBSCRIPT SMALL LETTER J]
+		"FF4A": // ï½Š  [FULLWIDTH LATIN SMALL LETTER J]
+		buffer.WriteString("j")
+		break
+	case "24A5": // â’¥  [PARENTHESIZED LATIN SMALL LETTER J]
+		buffer.WriteString("(")
+		buffer.WriteString("j")
+		buffer.WriteString(")")
+		break
+	case "136", // Ä¶  [LATIN CAPITAL LETTER K WITH CEDILLA]
+		"198",  // Æ˜  [LATIN CAPITAL LETTER K WITH HOOK]
+		"1E8",  // Ç¨  [LATIN CAPITAL LETTER K WITH CARON]
+		"1D0B", // á´‹  [LATIN LETTER SMALL CAPITAL K]
+		"1E30", // á¸°  [LATIN CAPITAL LETTER K WITH ACUTE]
+		"1E32", // á¸²  [LATIN CAPITAL LETTER K WITH DOT BELOW]
+		"1E34", // á¸´  [LATIN CAPITAL LETTER K WITH LINE BELOW]
+		"24C0", // â“€  [CIRCLED LATIN CAPITAL LETTER K]
+		"2C69", // â±©  [LATIN CAPITAL LETTER K WITH DESCENDER]
+		"A740", // ê€  [LATIN CAPITAL LETTER K WITH STROKE]
+		"A742", // ê‚  [LATIN CAPITAL LETTER K WITH DIAGONAL STROKE]
+		"A744", // ê„  [LATIN CAPITAL LETTER K WITH STROKE AND DIAGONAL STROKE]
+		"FF2B": // ï¼«  [FULLWIDTH LATIN CAPITAL LETTER K]
+		buffer.WriteString("K")
+		break
+	case "137", // Ä·  [LATIN SMALL LETTER K WITH CEDILLA]
+		"199",  // Æ™  [LATIN SMALL LETTER K WITH HOOK]
+		"1E9",  // Ç©  [LATIN SMALL LETTER K WITH CARON]
+		"29E",  // Êž  [LATIN SMALL LETTER TURNED K]
+		"1D84", // á¶„  [LATIN SMALL LETTER K WITH PALATAL HOOK]
+		"1E31", // á¸±  [LATIN SMALL LETTER K WITH ACUTE]
+		"1E33", // á¸³  [LATIN SMALL LETTER K WITH DOT BELOW]
+		"1E35", // á¸µ  [LATIN SMALL LETTER K WITH LINE BELOW]
+		"24DA", // â“š  [CIRCLED LATIN SMALL LETTER K]
+		"2C6A", // â±ª  [LATIN SMALL LETTER K WITH DESCENDER]
+		"A741", // ê  [LATIN SMALL LETTER K WITH STROKE]
+		"A743", // êƒ  [LATIN SMALL LETTER K WITH DIAGONAL STROKE]
+		"A745", // ê…  [LATIN SMALL LETTER K WITH STROKE AND DIAGONAL STROKE]
+		"FF4B": // ï½‹  [FULLWIDTH LATIN SMALL LETTER K]
+		buffer.WriteString("k")
+		break
+	case "24A6": // â’¦  [PARENTHESIZED LATIN SMALL LETTER K]
+		buffer.WriteString("(")
+		buffer.WriteString("k")
+		buffer.WriteString(")")
+		break
+	case "139", // Ä¹  [LATIN CAPITAL LETTER L WITH ACUTE]
+		"13B",  // Ä»  [LATIN CAPITAL LETTER L WITH CEDILLA]
+		"13D",  // Ä½  [LATIN CAPITAL LETTER L WITH CARON]
+		"13F",  // Ä¿  [LATIN CAPITAL LETTER L WITH MIDDLE DOT]
+		"141",  // Å  [LATIN CAPITAL LETTER L WITH STROKE]
+		"23D",  // È½  [LATIN CAPITAL LETTER L WITH BAR]
+		"29F",  // ÊŸ  [LATIN LETTER SMALL CAPITAL L]
+		"1D0C", // á´Œ  [LATIN LETTER SMALL CAPITAL L WITH STROKE]
+		"1E36", // á¸¶  [LATIN CAPITAL LETTER L WITH DOT BELOW]
+		"1E38", // á¸¸  [LATIN CAPITAL LETTER L WITH DOT BELOW AND MACRON]
+		"1E3A", // á¸º  [LATIN CAPITAL LETTER L WITH LINE BELOW]
+		"1E3C", // á¸¼  [LATIN CAPITAL LETTER L WITH CIRCUMFLEX BELOW]
+		"24C1", // â“  [CIRCLED LATIN CAPITAL LETTER L]
+		"2C60", // â±   [LATIN CAPITAL LETTER L WITH DOUBLE BAR]
+		"2C62", // â±¢  [LATIN CAPITAL LETTER L WITH MIDDLE TILDE]
+		"A746", // ê†  [LATIN CAPITAL LETTER BROKEN L]
+		"A748", // êˆ  [LATIN CAPITAL LETTER L WITH HIGH STROKE]
+		"A780", // êž€  [LATIN CAPITAL LETTER TURNED L]
+		"FF2C": // ï¼¬  [FULLWIDTH LATIN CAPITAL LETTER L]
+		buffer.WriteString("L")
+		break
+	case "13A", // Äº  [LATIN SMALL LETTER L WITH ACUTE]
+		"13C",  // Ä¼  [LATIN SMALL LETTER L WITH CEDILLA]
+		"13E",  // Ä¾  [LATIN SMALL LETTER L WITH CARON]
+		"140",  // Å€  [LATIN SMALL LETTER L WITH MIDDLE DOT]
+		"142",  // Å‚  [LATIN SMALL LETTER L WITH STROKE]
+		"19A",  // Æš  [LATIN SMALL LETTER L WITH BAR]
+		"234",  // È´  [LATIN SMALL LETTER L WITH CURL]
+		"26B",  // É«  [LATIN SMALL LETTER L WITH MIDDLE TILDE]
+		"26C",  // É¬  [LATIN SMALL LETTER L WITH BELT]
+		"26D",  // É­  [LATIN SMALL LETTER L WITH RETROFLEX HOOK]
+		"1D85", // á¶…  [LATIN SMALL LETTER L WITH PALATAL HOOK]
+		"1E37", // á¸·  [LATIN SMALL LETTER L WITH DOT BELOW]
+		"1E39", // á¸¹  [LATIN SMALL LETTER L WITH DOT BELOW AND MACRON]
+		"1E3B", // á¸»  [LATIN SMALL LETTER L WITH LINE BELOW]
+		"1E3D", // á¸½  [LATIN SMALL LETTER L WITH CIRCUMFLEX BELOW]
+		"24DB", // â“›  [CIRCLED LATIN SMALL LETTER L]
+		"2C61", // â±¡  [LATIN SMALL LETTER L WITH DOUBLE BAR]
+		"A747", // ê‡  [LATIN SMALL LETTER BROKEN L]
+		"A749", // ê‰  [LATIN SMALL LETTER L WITH HIGH STROKE]
+		"A781", // êž  [LATIN SMALL LETTER TURNED L]
+		"FF4C": // ï½Œ  [FULLWIDTH LATIN SMALL LETTER L]
+		buffer.WriteString("l")
+		break
+	case "1C7": // Ç‡  [LATIN CAPITAL LETTER LJ]
+		buffer.WriteString("L")
+		buffer.WriteString("J")
+		break
+	case "1EFA": // á»º  [LATIN CAPITAL LETTER MIDDLE-WELSH LL]
+		buffer.WriteString("L")
+		buffer.WriteString("L")
+		break
+	case "1C8": // Çˆ  [LATIN CAPITAL LETTER L WITH SMALL LETTER J]
+		buffer.WriteString("L")
+		buffer.WriteString("j")
+		break
+	case "24A7": // â’§  [PARENTHESIZED LATIN SMALL LETTER L]
+		buffer.WriteString("(")
+		buffer.WriteString("l")
+		buffer.WriteString(")")
+		break
+	case "1C9": // Ç‰  [LATIN SMALL LETTER LJ]
+		buffer.WriteString("l")
+		buffer.WriteString("j")
+		break
+	case "1EFB": // á»»  [LATIN SMALL LETTER MIDDLE-WELSH LL]
+		buffer.WriteString("l")
+		buffer.WriteString("l")
+		break
+	case "2AA": // Êª  [LATIN SMALL LETTER LS DIGRAPH]
+		buffer.WriteString("l")
+		buffer.WriteString("s")
+		break
+	case "2AB": // Ê«  [LATIN SMALL LETTER LZ DIGRAPH]
+		buffer.WriteString("l")
+		buffer.WriteString("z")
+		break
+	case "19C", // Æœ  [LATIN CAPITAL LETTER TURNED M]
+		"1D0D", // á´  [LATIN LETTER SMALL CAPITAL M]
+		"1E3E", // á¸¾  [LATIN CAPITAL LETTER M WITH ACUTE]
+		"1E40", // á¹€  [LATIN CAPITAL LETTER M WITH DOT ABOVE]
+		"1E42", // á¹‚  [LATIN CAPITAL LETTER M WITH DOT BELOW]
+		"24C2", // â“‚  [CIRCLED LATIN CAPITAL LETTER M]
+		"2C6E", // â±®  [LATIN CAPITAL LETTER M WITH HOOK]
+		"A7FD", // êŸ½  [LATIN EPIGRAPHIC LETTER INVERTED M]
+		"A7FF", // êŸ¿  [LATIN EPIGRAPHIC LETTER ARCHAIC M]
+		"FF2D": // ï¼­  [FULLWIDTH LATIN CAPITAL LETTER M]
+		buffer.WriteString("M")
+		break
+	case "26F", // É¯  [LATIN SMALL LETTER TURNED M]
+		"270",  // É°  [LATIN SMALL LETTER TURNED M WITH LONG LEG]
+		"271",  // É±  [LATIN SMALL LETTER M WITH HOOK]
+		"1D6F", // áµ¯  [LATIN SMALL LETTER M WITH MIDDLE TILDE]
+		"1D86", // á¶†  [LATIN SMALL LETTER M WITH PALATAL HOOK]
+		"1E3F", // á¸¿  [LATIN SMALL LETTER M WITH ACUTE]
+		"1E41", // á¹  [LATIN SMALL LETTER M WITH DOT ABOVE]
+		"1E43", // á¹ƒ  [LATIN SMALL LETTER M WITH DOT BELOW]
+		"24DC", // â“œ  [CIRCLED LATIN SMALL LETTER M]
+		"FF4D": // ï½  [FULLWIDTH LATIN SMALL LETTER M]
+		buffer.WriteString("m")
+		break
+	case "24A8": // â’¨  [PARENTHESIZED LATIN SMALL LETTER M]
+		buffer.WriteString("(")
+		buffer.WriteString("m")
+		buffer.WriteString(")")
+		break
+	case "D1", // Ã‘  [LATIN CAPITAL LETTER N WITH TILDE]
+		"143",  // Åƒ  [LATIN CAPITAL LETTER N WITH ACUTE]
+		"145",  // Å…  [LATIN CAPITAL LETTER N WITH CEDILLA]
+		"147",  // Å‡  [LATIN CAPITAL LETTER N WITH CARON]
+		"14A",  // ÅŠ  http://en.wikipedia.org/wiki/Eng_(letter)  [LATIN CAPITAL LETTER ENG]
+		"19D",  // Æ  [LATIN CAPITAL LETTER N WITH LEFT HOOK]
+		"1F8",  // Ç¸  [LATIN CAPITAL LETTER N WITH GRAVE]
+		"220",  // È   [LATIN CAPITAL LETTER N WITH LONG RIGHT LEG]
+		"274",  // É´  [LATIN LETTER SMALL CAPITAL N]
+		"1D0E", // á´Ž  [LATIN LETTER SMALL CAPITAL REVERSED N]
+		"1E44", // á¹„  [LATIN CAPITAL LETTER N WITH DOT ABOVE]
+		"1E46", // á¹†  [LATIN CAPITAL LETTER N WITH DOT BELOW]
+		"1E48", // á¹ˆ  [LATIN CAPITAL LETTER N WITH LINE BELOW]
+		"1E4A", // á¹Š  [LATIN CAPITAL LETTER N WITH CIRCUMFLEX BELOW]
+		"24C3", // â“ƒ  [CIRCLED LATIN CAPITAL LETTER N]
+		"FF2E": // ï¼®  [FULLWIDTH LATIN CAPITAL LETTER N]
+		buffer.WriteString("N")
+		break
+	case "F1", // Ã±  [LATIN SMALL LETTER N WITH TILDE]
+		"144",  // Å„  [LATIN SMALL LETTER N WITH ACUTE]
+		"146",  // Å†  [LATIN SMALL LETTER N WITH CEDILLA]
+		"148",  // Åˆ  [LATIN SMALL LETTER N WITH CARON]
+		"149",  // Å‰  [LATIN SMALL LETTER N PRECEDED BY APOSTROPHE]
+		"14B",  // Å‹  http://en.wikipedia.org/wiki/Eng_(letter)  [LATIN SMALL LETTER ENG]
+		"19E",  // Æž  [LATIN SMALL LETTER N WITH LONG RIGHT LEG]
+		"1F9",  // Ç¹  [LATIN SMALL LETTER N WITH GRAVE]
+		"235",  // Èµ  [LATIN SMALL LETTER N WITH CURL]
+		"272",  // É²  [LATIN SMALL LETTER N WITH LEFT HOOK]
+		"273",  // É³  [LATIN SMALL LETTER N WITH RETROFLEX HOOK]
+		"1D70", // áµ°  [LATIN SMALL LETTER N WITH MIDDLE TILDE]
+		"1D87", // á¶‡  [LATIN SMALL LETTER N WITH PALATAL HOOK]
+		"1E45", // á¹…  [LATIN SMALL LETTER N WITH DOT ABOVE]
+		"1E47", // á¹‡  [LATIN SMALL LETTER N WITH DOT BELOW]
+		"1E49", // á¹‰  [LATIN SMALL LETTER N WITH LINE BELOW]
+		"1E4B", // á¹‹  [LATIN SMALL LETTER N WITH CIRCUMFLEX BELOW]
+		"207F", // â¿  [SUPERSCRIPT LATIN SMALL LETTER N]
+		"24DD", // â“  [CIRCLED LATIN SMALL LETTER N]
+		"FF4E": // ï½Ž  [FULLWIDTH LATIN SMALL LETTER N]
+		buffer.WriteString("n")
+		break
+	case "1CA": // ÇŠ  [LATIN CAPITAL LETTER NJ]
+		buffer.WriteString("N")
+		buffer.WriteString("J")
+		break
+	case "1CB": // Ç‹  [LATIN CAPITAL LETTER N WITH SMALL LETTER J]
+		buffer.WriteString("N")
+		buffer.WriteString("j")
+		break
+	case "24A9": // â’©  [PARENTHESIZED LATIN SMALL LETTER N]
+		buffer.WriteString("(")
+		buffer.WriteString("n")
+		buffer.WriteString(")")
+		break
+	case "1CC": // ÇŒ  [LATIN SMALL LETTER NJ]
+		buffer.WriteString("n")
+		buffer.WriteString("j")
+		break
+	case "D2", // Ã’  [LATIN CAPITAL LETTER O WITH GRAVE]
+		"D3",   // Ã“  [LATIN CAPITAL LETTER O WITH ACUTE]
+		"D4",   // Ã”  [LATIN CAPITAL LETTER O WITH CIRCUMFLEX]
+		"D5",   // Ã•  [LATIN CAPITAL LETTER O WITH TILDE]
+		"D6",   // Ã–  [LATIN CAPITAL LETTER O WITH DIAERESIS]
+		"D8",   // Ã˜  [LATIN CAPITAL LETTER O WITH STROKE]
+		"14C",  // ÅŒ  [LATIN CAPITAL LETTER O WITH MACRON]
+		"14E",  // ÅŽ  [LATIN CAPITAL LETTER O WITH BREVE]
+		"150",  // Å  [LATIN CAPITAL LETTER O WITH DOUBLE ACUTE]
+		"186",  // Æ†  [LATIN CAPITAL LETTER OPEN O]
+		"19F",  // ÆŸ  [LATIN CAPITAL LETTER O WITH MIDDLE TILDE]
+		"1A0",  // Æ   [LATIN CAPITAL LETTER O WITH HORN]
+		"1D1",  // Ç‘  [LATIN CAPITAL LETTER O WITH CARON]
+		"1EA",  // Çª  [LATIN CAPITAL LETTER O WITH OGONEK]
+		"1EC",  // Ç¬  [LATIN CAPITAL LETTER O WITH OGONEK AND MACRON]
+		"1FE",  // Ç¾  [LATIN CAPITAL LETTER O WITH STROKE AND ACUTE]
+		"20C",  // ÈŒ  [LATIN CAPITAL LETTER O WITH DOUBLE GRAVE]
+		"20E",  // ÈŽ  [LATIN CAPITAL LETTER O WITH INVERTED BREVE]
+		"22A",  // Èª  [LATIN CAPITAL LETTER O WITH DIAERESIS AND MACRON]
+		"22C",  // È¬  [LATIN CAPITAL LETTER O WITH TILDE AND MACRON]
+		"22E",  // È®  [LATIN CAPITAL LETTER O WITH DOT ABOVE]
+		"230",  // È°  [LATIN CAPITAL LETTER O WITH DOT ABOVE AND MACRON]
+		"1D0F", // á´  [LATIN LETTER SMALL CAPITAL O]
+		"1D10", // á´  [LATIN LETTER SMALL CAPITAL OPEN O]
+		"1E4C", // á¹Œ  [LATIN CAPITAL LETTER O WITH TILDE AND ACUTE]
+		"1E4E", // á¹Ž  [LATIN CAPITAL LETTER O WITH TILDE AND DIAERESIS]
+		"1E50", // á¹  [LATIN CAPITAL LETTER O WITH MACRON AND GRAVE]
+		"1E52", // á¹’  [LATIN CAPITAL LETTER O WITH MACRON AND ACUTE]
+		"1ECC", // á»Œ  [LATIN CAPITAL LETTER O WITH DOT BELOW]
+		"1ECE", // á»Ž  [LATIN CAPITAL LETTER O WITH HOOK ABOVE]
+		"1ED0", // á»  [LATIN CAPITAL LETTER O WITH CIRCUMFLEX AND ACUTE]
+		"1ED2", // á»’  [LATIN CAPITAL LETTER O WITH CIRCUMFLEX AND GRAVE]
+		"1ED4", // á»”  [LATIN CAPITAL LETTER O WITH CIRCUMFLEX AND HOOK ABOVE]
+		"1ED6", // á»–  [LATIN CAPITAL LETTER O WITH CIRCUMFLEX AND TILDE]
+		"1ED8", // á»˜  [LATIN CAPITAL LETTER O WITH CIRCUMFLEX AND DOT BELOW]
+		"1EDA", // á»š  [LATIN CAPITAL LETTER O WITH HORN AND ACUTE]
+		"1EDC", // á»œ  [LATIN CAPITAL LETTER O WITH HORN AND GRAVE]
+		"1EDE", // á»ž  [LATIN CAPITAL LETTER O WITH HORN AND HOOK ABOVE]
+		"1EE0", // á»   [LATIN CAPITAL LETTER O WITH HORN AND TILDE]
+		"1EE2", // á»¢  [LATIN CAPITAL LETTER O WITH HORN AND DOT BELOW]
+		"24C4", // â“„  [CIRCLED LATIN CAPITAL LETTER O]
+		"A74A", // êŠ  [LATIN CAPITAL LETTER O WITH LONG STROKE OVERLAY]
+		"A74C", // êŒ  [LATIN CAPITAL LETTER O WITH LOOP]
+		"FF2F": // ï¼¯  [FULLWIDTH LATIN CAPITAL LETTER O]
+		buffer.WriteString("O")
+		break
+	case "F2", // Ã²  [LATIN SMALL LETTER O WITH GRAVE]
+		"F3",   // Ã³  [LATIN SMALL LETTER O WITH ACUTE]
+		"F4",   // Ã´  [LATIN SMALL LETTER O WITH CIRCUMFLEX]
+		"F5",   // Ãµ  [LATIN SMALL LETTER O WITH TILDE]
+		"F6",   // Ã¶  [LATIN SMALL LETTER O WITH DIAERESIS]
+		"F8",   // Ã¸  [LATIN SMALL LETTER O WITH STROKE]
+		"14D",  // Å  [LATIN SMALL LETTER O WITH MACRON]
+		"14F",  // Å  [LATIN SMALL LETTER O WITH BREVE]
+		"151",  // Å‘  [LATIN SMALL LETTER O WITH DOUBLE ACUTE]
+		"1A1",  // Æ¡  [LATIN SMALL LETTER O WITH HORN]
+		"1D2",  // Ç’  [LATIN SMALL LETTER O WITH CARON]
+		"1EB",  // Ç«  [LATIN SMALL LETTER O WITH OGONEK]
+		"1ED",  // Ç­  [LATIN SMALL LETTER O WITH OGONEK AND MACRON]
+		"1FF",  // Ç¿  [LATIN SMALL LETTER O WITH STROKE AND ACUTE]
+		"20D",  // È  [LATIN SMALL LETTER O WITH DOUBLE GRAVE]
+		"20F",  // È  [LATIN SMALL LETTER O WITH INVERTED BREVE]
+		"22B",  // È«  [LATIN SMALL LETTER O WITH DIAERESIS AND MACRON]
+		"22D",  // È­  [LATIN SMALL LETTER O WITH TILDE AND MACRON]
+		"22F",  // È¯  [LATIN SMALL LETTER O WITH DOT ABOVE]
+		"231",  // È±  [LATIN SMALL LETTER O WITH DOT ABOVE AND MACRON]
+		"254",  // É”  [LATIN SMALL LETTER OPEN O]
+		"275",  // Éµ  [LATIN SMALL LETTER BARRED O]
+		"1D16", // á´–  [LATIN SMALL LETTER TOP HALF O]
+		"1D17", // á´—  [LATIN SMALL LETTER BOTTOM HALF O]
+		"1D97", // á¶—  [LATIN SMALL LETTER OPEN O WITH RETROFLEX HOOK]
+		"1E4D", // á¹  [LATIN SMALL LETTER O WITH TILDE AND ACUTE]
+		"1E4F", // á¹  [LATIN SMALL LETTER O WITH TILDE AND DIAERESIS]
+		"1E51", // á¹‘  [LATIN SMALL LETTER O WITH MACRON AND GRAVE]
+		"1E53", // á¹“  [LATIN SMALL LETTER O WITH MACRON AND ACUTE]
+		"1ECD", // á»  [LATIN SMALL LETTER O WITH DOT BELOW]
+		"1ECF", // á»  [LATIN SMALL LETTER O WITH HOOK ABOVE]
+		"1ED1", // á»‘  [LATIN SMALL LETTER O WITH CIRCUMFLEX AND ACUTE]
+		"1ED3", // á»“  [LATIN SMALL LETTER O WITH CIRCUMFLEX AND GRAVE]
+		"1ED5", // á»•  [LATIN SMALL LETTER O WITH CIRCUMFLEX AND HOOK ABOVE]
+		"1ED7", // á»—  [LATIN SMALL LETTER O WITH CIRCUMFLEX AND TILDE]
+		"1ED9", // á»™  [LATIN SMALL LETTER O WITH CIRCUMFLEX AND DOT BELOW]
+		"1EDB", // á»›  [LATIN SMALL LETTER O WITH HORN AND ACUTE]
+		"1EDD", // á»  [LATIN SMALL LETTER O WITH HORN AND GRAVE]
+		"1EDF", // á»Ÿ  [LATIN SMALL LETTER O WITH HORN AND HOOK ABOVE]
+		"1EE1", // á»¡  [LATIN SMALL LETTER O WITH HORN AND TILDE]
+		"1EE3", // á»£  [LATIN SMALL LETTER O WITH HORN AND DOT BELOW]
+		"2092", // â‚’  [LATIN SUBSCRIPT SMALL LETTER O]
+		"24DE", // â“ž  [CIRCLED LATIN SMALL LETTER O]
+		"2C7A", // â±º  [LATIN SMALL LETTER O WITH LOW RING INSIDE]
+		"A74B", // ê‹  [LATIN SMALL LETTER O WITH LONG STROKE OVERLAY]
+		"A74D", // ê  [LATIN SMALL LETTER O WITH LOOP]
+		"FF4F": // ï½  [FULLWIDTH LATIN SMALL LETTER O]
+		buffer.WriteString("o")
+		break
+	case "152", // Å’  [LATIN CAPITAL LIGATURE OE]
+		"276": // É¶  [LATIN LETTER SMALL CAPITAL OE]
+		buffer.WriteString("O")
+		buffer.WriteString("E")
+		break
+	case "A74E": // êŽ  [LATIN CAPITAL LETTER OO]
+		buffer.WriteString("O")
+		buffer.WriteString("O")
+		break
+	case "222", // È¢  http://en.wikipedia.org/wiki/OU  [LATIN CAPITAL LETTER OU]
+		"1D15": // á´•  [LATIN LETTER SMALL CAPITAL OU]
+		buffer.WriteString("O")
+		buffer.WriteString("U")
+		break
+	case "24AA": // â’ª  [PARENTHESIZED LATIN SMALL LETTER O]
+		buffer.WriteString("(")
+		buffer.WriteString("o")
+		buffer.WriteString(")")
+		break
+	case "153", // Å“  [LATIN SMALL LIGATURE OE]
+		"1D14": // á´”  [LATIN SMALL LETTER TURNED OE]
+		buffer.WriteString("o")
+		buffer.WriteString("e")
+		break
+	case "A74F": // ê  [LATIN SMALL LETTER OO]
+		buffer.WriteString("o")
+		buffer.WriteString("o")
+		break
+	case "223": // È£  http://en.wikipedia.org/wiki/OU  [LATIN SMALL LETTER OU]
+		buffer.WriteString("o")
+		buffer.WriteString("u")
+		break
+	case "1A4", // Æ¤  [LATIN CAPITAL LETTER P WITH HOOK]
+		"1D18", // á´˜  [LATIN LETTER SMALL CAPITAL P]
+		"1E54", // á¹”  [LATIN CAPITAL LETTER P WITH ACUTE]
+		"1E56", // á¹–  [LATIN CAPITAL LETTER P WITH DOT ABOVE]
+		"24C5", // â“…  [CIRCLED LATIN CAPITAL LETTER P]
+		"2C63", // â±£  [LATIN CAPITAL LETTER P WITH STROKE]
+		"A750", // ê  [LATIN CAPITAL LETTER P WITH STROKE THROUGH DESCENDER]
+		"A752", // ê’  [LATIN CAPITAL LETTER P WITH FLOURISH]
+		"A754", // ê”  [LATIN CAPITAL LETTER P WITH SQUIRREL TAIL]
+		"FF30": // ï¼°  [FULLWIDTH LATIN CAPITAL LETTER P]
+		buffer.WriteString("P")
+		break
+	case "1A5", // Æ¥  [LATIN SMALL LETTER P WITH HOOK]
+		"1D71", // áµ±  [LATIN SMALL LETTER P WITH MIDDLE TILDE]
+		"1D7D", // áµ½  [LATIN SMALL LETTER P WITH STROKE]
+		"1D88", // á¶ˆ  [LATIN SMALL LETTER P WITH PALATAL HOOK]
+		"1E55", // á¹•  [LATIN SMALL LETTER P WITH ACUTE]
+		"1E57", // á¹—  [LATIN SMALL LETTER P WITH DOT ABOVE]
+		"24DF", // â“Ÿ  [CIRCLED LATIN SMALL LETTER P]
+		"A751", // ê‘  [LATIN SMALL LETTER P WITH STROKE THROUGH DESCENDER]
+		"A753", // ê“  [LATIN SMALL LETTER P WITH FLOURISH]
+		"A755", // ê•  [LATIN SMALL LETTER P WITH SQUIRREL TAIL]
+		"A7FC", // êŸ¼  [LATIN EPIGRAPHIC LETTER REVERSED P]
+		"FF50": // ï½  [FULLWIDTH LATIN SMALL LETTER P]
+		buffer.WriteString("p")
+		break
+	case "24AB": // â’«  [PARENTHESIZED LATIN SMALL LETTER P]
+		buffer.WriteString("(")
+		buffer.WriteString("p")
+		buffer.WriteString(")")
+		break
+	case "24A", // ÉŠ  [LATIN CAPITAL LETTER SMALL Q WITH HOOK TAIL]
+		"24C6", // â“†  [CIRCLED LATIN CAPITAL LETTER Q]
+		"A756", // ê–  [LATIN CAPITAL LETTER Q WITH STROKE THROUGH DESCENDER]
+		"A758", // ê˜  [LATIN CAPITAL LETTER Q WITH DIAGONAL STROKE]
+		"FF31": // ï¼±  [FULLWIDTH LATIN CAPITAL LETTER Q]
+		buffer.WriteString("Q")
+		break
+	case "138", // Ä¸  http://en.wikipedia.org/wiki/Kra_(letter)  [LATIN SMALL LETTER KRA]
+		"24B",  // É‹  [LATIN SMALL LETTER Q WITH HOOK TAIL]
+		"2A0",  // Ê   [LATIN SMALL LETTER Q WITH HOOK]
+		"24E0", // â“   [CIRCLED LATIN SMALL LETTER Q]
+		"A757", // ê—  [LATIN SMALL LETTER Q WITH STROKE THROUGH DESCENDER]
+		"A759", // ê™  [LATIN SMALL LETTER Q WITH DIAGONAL STROKE]
+		"FF51": // ï½‘  [FULLWIDTH LATIN SMALL LETTER Q]
+		buffer.WriteString("q")
+		break
+	case "24AC": // â’¬  [PARENTHESIZED LATIN SMALL LETTER Q]
+		buffer.WriteString("(")
+		buffer.WriteString("q")
+		buffer.WriteString(")")
+		break
+	case "239": // È¹  [LATIN SMALL LETTER QP DIGRAPH]
+		buffer.WriteString("q")
+		buffer.WriteString("p")
+		break
+	case "154", // Å”  [LATIN CAPITAL LETTER R WITH ACUTE]
+		"156",  // Å–  [LATIN CAPITAL LETTER R WITH CEDILLA]
+		"158",  // Å˜  [LATIN CAPITAL LETTER R WITH CARON]
+		"210",  // È’  [LATIN CAPITAL LETTER R WITH DOUBLE GRAVE]
+		"212",  // È’  [LATIN CAPITAL LETTER R WITH INVERTED BREVE]
+		"24C",  // ÉŒ  [LATIN CAPITAL LETTER R WITH STROKE]
+		"280",  // Ê€  [LATIN LETTER SMALL CAPITAL R]
+		"281",  // Ê  [LATIN LETTER SMALL CAPITAL INVERTED R]
+		"1D19", // á´™  [LATIN LETTER SMALL CAPITAL REVERSED R]
+		"1D1A", // á´š  [LATIN LETTER SMALL CAPITAL TURNED R]
+		"1E58", // á¹˜  [LATIN CAPITAL LETTER R WITH DOT ABOVE]
+		"1E5A", // á¹š  [LATIN CAPITAL LETTER R WITH DOT BELOW]
+		"1E5C", // á¹œ  [LATIN CAPITAL LETTER R WITH DOT BELOW AND MACRON]
+		"1E5E", // á¹ž  [LATIN CAPITAL LETTER R WITH LINE BELOW]
+		"24C7", // â“‡  [CIRCLED LATIN CAPITAL LETTER R]
+		"2C64", // â±¤  [LATIN CAPITAL LETTER R WITH TAIL]
+		"A75A", // êš  [LATIN CAPITAL LETTER R ROTUNDA]
+		"A782", // êž‚  [LATIN CAPITAL LETTER INSULAR R]
+		"FF32": // ï¼²  [FULLWIDTH LATIN CAPITAL LETTER R]
+		buffer.WriteString("R")
+		break
+	case "155", // Å•  [LATIN SMALL LETTER R WITH ACUTE]
+		"157",  // Å—  [LATIN SMALL LETTER R WITH CEDILLA]
+		"159",  // Å™  [LATIN SMALL LETTER R WITH CARON]
+		"211",  // È‘  [LATIN SMALL LETTER R WITH DOUBLE GRAVE]
+		"213",  // È“  [LATIN SMALL LETTER R WITH INVERTED BREVE]
+		"24D",  // É  [LATIN SMALL LETTER R WITH STROKE]
+		"27C",  // É¼  [LATIN SMALL LETTER R WITH LONG LEG]
+		"27D",  // É½  [LATIN SMALL LETTER R WITH TAIL]
+		"27E",  // É¾  [LATIN SMALL LETTER R WITH FISHHOOK]
+		"27F",  // É¿  [LATIN SMALL LETTER REVERSED R WITH FISHHOOK]
+		"1D63", // áµ£  [LATIN SUBSCRIPT SMALL LETTER R]
+		"1D72", // áµ²  [LATIN SMALL LETTER R WITH MIDDLE TILDE]
+		"1D73", // áµ³  [LATIN SMALL LETTER R WITH FISHHOOK AND MIDDLE TILDE]
+		"1D89", // á¶‰  [LATIN SMALL LETTER R WITH PALATAL HOOK]
+		"1E59", // á¹™  [LATIN SMALL LETTER R WITH DOT ABOVE]
+		"1E5B", // á¹›  [LATIN SMALL LETTER R WITH DOT BELOW]
+		"1E5D", // á¹  [LATIN SMALL LETTER R WITH DOT BELOW AND MACRON]
+		"1E5F", // á¹Ÿ  [LATIN SMALL LETTER R WITH LINE BELOW]
+		"24E1", // â“¡  [CIRCLED LATIN SMALL LETTER R]
+		"A75B", // ê›  [LATIN SMALL LETTER R ROTUNDA]
+		"A783", // êžƒ  [LATIN SMALL LETTER INSULAR R]
+		"FF52": // ï½’  [FULLWIDTH LATIN SMALL LETTER R]
+		buffer.WriteString("r")
+		break
+	case "24AD": // â’­  [PARENTHESIZED LATIN SMALL LETTER R]
+		buffer.WriteString("(")
+		buffer.WriteString("r")
+		buffer.WriteString(")")
+		break
+	case "15A", // Åš  [LATIN CAPITAL LETTER S WITH ACUTE]
+		"15C",  // Åœ  [LATIN CAPITAL LETTER S WITH CIRCUMFLEX]
+		"15E",  // Åž  [LATIN CAPITAL LETTER S WITH CEDILLA]
+		"160",  // Å   [LATIN CAPITAL LETTER S WITH CARON]
+		"218",  // È˜  [LATIN CAPITAL LETTER S WITH COMMA BELOW]
+		"1E60", // á¹   [LATIN CAPITAL LETTER S WITH DOT ABOVE]
+		"1E62", // á¹¢  [LATIN CAPITAL LETTER S WITH DOT BELOW]
+		"1E64", // á¹¤  [LATIN CAPITAL LETTER S WITH ACUTE AND DOT ABOVE]
+		"1E66", // á¹¦  [LATIN CAPITAL LETTER S WITH CARON AND DOT ABOVE]
+		"1E68", // á¹¨  [LATIN CAPITAL LETTER S WITH DOT BELOW AND DOT ABOVE]
+		"24C8", // â“ˆ  [CIRCLED LATIN CAPITAL LETTER S]
+		"A731", // êœ±  [LATIN LETTER SMALL CAPITAL S]
+		"A785", // êž…  [LATIN SMALL LETTER INSULAR S]
+		"FF33": // ï¼³  [FULLWIDTH LATIN CAPITAL LETTER S]
+		buffer.WriteString("S")
+		break
+	case "15B", // Å›  [LATIN SMALL LETTER S WITH ACUTE]
+		"15D",  // Å  [LATIN SMALL LETTER S WITH CIRCUMFLEX]
+		"15F",  // ÅŸ  [LATIN SMALL LETTER S WITH CEDILLA]
+		"161",  // Å¡  [LATIN SMALL LETTER S WITH CARON]
+		"17F",  // Å¿  http://en.wikipedia.org/wiki/Long_S  [LATIN SMALL LETTER LONG S]
+		"219",  // È™  [LATIN SMALL LETTER S WITH COMMA BELOW]
+		"23F",  // È¿  [LATIN SMALL LETTER S WITH SWASH TAIL]
+		"282",  // Ê‚  [LATIN SMALL LETTER S WITH HOOK]
+		"1D74", // áµ´  [LATIN SMALL LETTER S WITH MIDDLE TILDE]
+		"1D8A", // á¶Š  [LATIN SMALL LETTER S WITH PALATAL HOOK]
+		"1E61", // á¹¡  [LATIN SMALL LETTER S WITH DOT ABOVE]
+		"1E63", // á¹£  [LATIN SMALL LETTER S WITH DOT BELOW]
+		"1E65", // á¹¥  [LATIN SMALL LETTER S WITH ACUTE AND DOT ABOVE]
+		"1E67", // á¹§  [LATIN SMALL LETTER S WITH CARON AND DOT ABOVE]
+		"1E69", // á¹©  [LATIN SMALL LETTER S WITH DOT BELOW AND DOT ABOVE]
+		"1E9C", // áºœ  [LATIN SMALL LETTER LONG S WITH DIAGONAL STROKE]
+		"1E9D", // áº  [LATIN SMALL LETTER LONG S WITH HIGH STROKE]
+		"24E2", // â“¢  [CIRCLED LATIN SMALL LETTER S]
+		"A784", // êž„  [LATIN CAPITAL LETTER INSULAR S]
+		"FF53": // ï½“  [FULLWIDTH LATIN SMALL LETTER S]
+		buffer.WriteString("s")
+		break
+	case "1E9E": // áºž  [LATIN CAPITAL LETTER SHARP S]
+		buffer.WriteString("S")
+		buffer.WriteString("S")
+		break
+	case "24AE": // â’®  [PARENTHESIZED LATIN SMALL LETTER S]
+		buffer.WriteString("(")
+		buffer.WriteString("s")
+		buffer.WriteString(")")
+		break
+	case "DF": // ÃŸ  [LATIN SMALL LETTER SHARP S]
+		buffer.WriteString("s")
+		buffer.WriteString("s")
+		break
+	case "FB06": // ï¬†  [LATIN SMALL LIGATURE ST]
+		buffer.WriteString("s")
+		buffer.WriteString("t")
+		break
+	case "162", // Å¢  [LATIN CAPITAL LETTER T WITH CEDILLA]
+		"164",  // Å¤  [LATIN CAPITAL LETTER T WITH CARON]
+		"166",  // Å¦  [LATIN CAPITAL LETTER T WITH STROKE]
+		"1AC",  // Æ¬  [LATIN CAPITAL LETTER T WITH HOOK]
+		"1AE",  // Æ®  [LATIN CAPITAL LETTER T WITH RETROFLEX HOOK]
+		"21A",  // Èš  [LATIN CAPITAL LETTER T WITH COMMA BELOW]
+		"23E",  // È¾  [LATIN CAPITAL LETTER T WITH DIAGONAL STROKE]
+		"1D1B", // á´›  [LATIN LETTER SMALL CAPITAL T]
+		"1E6A", // á¹ª  [LATIN CAPITAL LETTER T WITH DOT ABOVE]
+		"1E6C", // á¹¬  [LATIN CAPITAL LETTER T WITH DOT BELOW]
+		"1E6E", // á¹®  [LATIN CAPITAL LETTER T WITH LINE BELOW]
+		"1E70", // á¹°  [LATIN CAPITAL LETTER T WITH CIRCUMFLEX BELOW]
+		"24C9", // â“‰  [CIRCLED LATIN CAPITAL LETTER T]
+		"A786", // êž†  [LATIN CAPITAL LETTER INSULAR T]
+		"FF34": // ï¼´  [FULLWIDTH LATIN CAPITAL LETTER T]
+		buffer.WriteString("T")
+		break
+	case "163", // Å£  [LATIN SMALL LETTER T WITH CEDILLA]
+		"165",  // Å¥  [LATIN SMALL LETTER T WITH CARON]
+		"167",  // Å§  [LATIN SMALL LETTER T WITH STROKE]
+		"1AB",  // Æ«  [LATIN SMALL LETTER T WITH PALATAL HOOK]
+		"1AD",  // Æ­  [LATIN SMALL LETTER T WITH HOOK]
+		"21B",  // È›  [LATIN SMALL LETTER T WITH COMMA BELOW]
+		"236",  // È¶  [LATIN SMALL LETTER T WITH CURL]
+		"287",  // Ê‡  [LATIN SMALL LETTER TURNED T]
+		"288",  // Êˆ  [LATIN SMALL LETTER T WITH RETROFLEX HOOK]
+		"1D75", // áµµ  [LATIN SMALL LETTER T WITH MIDDLE TILDE]
+		"1E6B", // á¹«  [LATIN SMALL LETTER T WITH DOT ABOVE]
+		"1E6D", // á¹­  [LATIN SMALL LETTER T WITH DOT BELOW]
+		"1E6F", // á¹¯  [LATIN SMALL LETTER T WITH LINE BELOW]
+		"1E71", // á¹±  [LATIN SMALL LETTER T WITH CIRCUMFLEX BELOW]
+		"1E97", // áº—  [LATIN SMALL LETTER T WITH DIAERESIS]
+		"24E3", // â“£  [CIRCLED LATIN SMALL LETTER T]
+		"2C66", // â±¦  [LATIN SMALL LETTER T WITH DIAGONAL STROKE]
+		"FF54": // ï½”  [FULLWIDTH LATIN SMALL LETTER T]
+		buffer.WriteString("t")
+		break
+	case "DE", // Ãž  [LATIN CAPITAL LETTER THORN]
+		"A766": // ê¦  [LATIN CAPITAL LETTER THORN WITH STROKE THROUGH DESCENDER]
+		buffer.WriteString("T")
+		buffer.WriteString("H")
+		break
+	case "A728": // êœ¨  [LATIN CAPITAL LETTER TZ]
+		buffer.WriteString("T")
+		buffer.WriteString("Z")
+		break
+	case "24AF": // â’¯  [PARENTHESIZED LATIN SMALL LETTER T]
+		buffer.WriteString("(")
+		buffer.WriteString("t")
+		buffer.WriteString(")")
+		break
+	case "2A8": // Ê¨  [LATIN SMALL LETTER TC DIGRAPH WITH CURL]
+		buffer.WriteString("t")
+		buffer.WriteString("c")
+		break
+	case "FE", // Ã¾  [LATIN SMALL LETTER THORN]
+		"1D7A", // áµº  [LATIN SMALL LETTER TH WITH STRIKETHROUGH]
+		"A767": // ê§  [LATIN SMALL LETTER THORN WITH STROKE THROUGH DESCENDER]
+		buffer.WriteString("t")
+		buffer.WriteString("h")
+		break
+	case "2A6": // Ê¦  [LATIN SMALL LETTER TS DIGRAPH]
+		buffer.WriteString("t")
+		buffer.WriteString("s")
+		break
+	case "A729": // êœ©  [LATIN SMALL LETTER TZ]
+		buffer.WriteString("t")
+		buffer.WriteString("z")
+		break
+	case "D9", // Ã™  [LATIN CAPITAL LETTER U WITH GRAVE]
+		"DA",   // Ãš  [LATIN CAPITAL LETTER U WITH ACUTE]
+		"DB",   // Ã›  [LATIN CAPITAL LETTER U WITH CIRCUMFLEX]
+		"DC",   // Ãœ  [LATIN CAPITAL LETTER U WITH DIAERESIS]
+		"168",  // Å¨  [LATIN CAPITAL LETTER U WITH TILDE]
+		"16A",  // Åª  [LATIN CAPITAL LETTER U WITH MACRON]
+		"16C",  // Å¬  [LATIN CAPITAL LETTER U WITH BREVE]
+		"16E",  // Å®  [LATIN CAPITAL LETTER U WITH RING ABOVE]
+		"170",  // Å°  [LATIN CAPITAL LETTER U WITH DOUBLE ACUTE]
+		"172",  // Å²  [LATIN CAPITAL LETTER U WITH OGONEK]
+		"1AF",  // Æ¯  [LATIN CAPITAL LETTER U WITH HORN]
+		"1D3",  // Ç“  [LATIN CAPITAL LETTER U WITH CARON]
+		"1D5",  // Ç•  [LATIN CAPITAL LETTER U WITH DIAERESIS AND MACRON]
+		"1D7",  // Ç—  [LATIN CAPITAL LETTER U WITH DIAERESIS AND ACUTE]
+		"1D9",  // Ç™  [LATIN CAPITAL LETTER U WITH DIAERESIS AND CARON]
+		"1DB",  // Ç›  [LATIN CAPITAL LETTER U WITH DIAERESIS AND GRAVE]
+		"214",  // È”  [LATIN CAPITAL LETTER U WITH DOUBLE GRAVE]
+		"216",  // È–  [LATIN CAPITAL LETTER U WITH INVERTED BREVE]
+		"244",  // É„  [LATIN CAPITAL LETTER U BAR]
+		"1D1C", // á´œ  [LATIN LETTER SMALL CAPITAL U]
+		"1D7E", // áµ¾  [LATIN SMALL CAPITAL LETTER U WITH STROKE]
+		"1E72", // á¹²  [LATIN CAPITAL LETTER U WITH DIAERESIS BELOW]
+		"1E74", // á¹´  [LATIN CAPITAL LETTER U WITH TILDE BELOW]
+		"1E76", // á¹¶  [LATIN CAPITAL LETTER U WITH CIRCUMFLEX BELOW]
+		"1E78", // á¹¸  [LATIN CAPITAL LETTER U WITH TILDE AND ACUTE]
+		"1E7A", // á¹º  [LATIN CAPITAL LETTER U WITH MACRON AND DIAERESIS]
+		"1EE4", // á»¤  [LATIN CAPITAL LETTER U WITH DOT BELOW]
+		"1EE6", // á»¦  [LATIN CAPITAL LETTER U WITH HOOK ABOVE]
+		"1EE8", // á»¨  [LATIN CAPITAL LETTER U WITH HORN AND ACUTE]
+		"1EEA", // á»ª  [LATIN CAPITAL LETTER U WITH HORN AND GRAVE]
+		"1EEC", // á»¬  [LATIN CAPITAL LETTER U WITH HORN AND HOOK ABOVE]
+		"1EEE", // á»®  [LATIN CAPITAL LETTER U WITH HORN AND TILDE]
+		"1EF0", // á»°  [LATIN CAPITAL LETTER U WITH HORN AND DOT BELOW]
+		"24CA", // â“Š  [CIRCLED LATIN CAPITAL LETTER U]
+		"FF35": // ï¼µ  [FULLWIDTH LATIN CAPITAL LETTER U]
+		buffer.WriteString("U")
+		break
+	case "F9", // Ã¹  [LATIN SMALL LETTER U WITH GRAVE]
+		"FA",   // Ãº  [LATIN SMALL LETTER U WITH ACUTE]
+		"FB",   // Ã»  [LATIN SMALL LETTER U WITH CIRCUMFLEX]
+		"FC",   // Ã¼  [LATIN SMALL LETTER U WITH DIAERESIS]
+		"169",  // Å©  [LATIN SMALL LETTER U WITH TILDE]
+		"16B",  // Å«  [LATIN SMALL LETTER U WITH MACRON]
+		"16D",  // Å­  [LATIN SMALL LETTER U WITH BREVE]
+		"16F",  // Å¯  [LATIN SMALL LETTER U WITH RING ABOVE]
+		"171",  // Å±  [LATIN SMALL LETTER U WITH DOUBLE ACUTE]
+		"173",  // Å³  [LATIN SMALL LETTER U WITH OGONEK]
+		"1B0",  // Æ°  [LATIN SMALL LETTER U WITH HORN]
+		"1D4",  // Ç”  [LATIN SMALL LETTER U WITH CARON]
+		"1D6",  // Ç–  [LATIN SMALL LETTER U WITH DIAERESIS AND MACRON]
+		"1D8",  // Ç˜  [LATIN SMALL LETTER U WITH DIAERESIS AND ACUTE]
+		"1DA",  // Çš  [LATIN SMALL LETTER U WITH DIAERESIS AND CARON]
+		"1DC",  // Çœ  [LATIN SMALL LETTER U WITH DIAERESIS AND GRAVE]
+		"215",  // È•  [LATIN SMALL LETTER U WITH DOUBLE GRAVE]
+		"217",  // È—  [LATIN SMALL LETTER U WITH INVERTED BREVE]
+		"289",  // Ê‰  [LATIN SMALL LETTER U BAR]
+		"1D64", // áµ¤  [LATIN SUBSCRIPT SMALL LETTER U]
+		"1D99", // á¶™  [LATIN SMALL LETTER U WITH RETROFLEX HOOK]
+		"1E73", // á¹³  [LATIN SMALL LETTER U WITH DIAERESIS BELOW]
+		"1E75", // á¹µ  [LATIN SMALL LETTER U WITH TILDE BELOW]
+		"1E77", // á¹·  [LATIN SMALL LETTER U WITH CIRCUMFLEX BELOW]
+		"1E79", // á¹¹  [LATIN SMALL LETTER U WITH TILDE AND ACUTE]
+		"1E7B", // á¹»  [LATIN SMALL LETTER U WITH MACRON AND DIAERESIS]
+		"1EE5", // á»¥  [LATIN SMALL LETTER U WITH DOT BELOW]
+		"1EE7", // á»§  [LATIN SMALL LETTER U WITH HOOK ABOVE]
+		"1EE9", // á»©  [LATIN SMALL LETTER U WITH HORN AND ACUTE]
+		"1EEB", // á»«  [LATIN SMALL LETTER U WITH HORN AND GRAVE]
+		"1EED", // á»­  [LATIN SMALL LETTER U WITH HORN AND HOOK ABOVE]
+		"1EEF", // á»¯  [LATIN SMALL LETTER U WITH HORN AND TILDE]
+		"1EF1", // á»±  [LATIN SMALL LETTER U WITH HORN AND DOT BELOW]
+		"24E4", // â“¤  [CIRCLED LATIN SMALL LETTER U]
+		"FF55": // ï½•  [FULLWIDTH LATIN SMALL LETTER U]
+		buffer.WriteString("u")
+		break
+	case "24B0": // â’°  [PARENTHESIZED LATIN SMALL LETTER U]
+		buffer.WriteString("(")
+		buffer.WriteString("u")
+		buffer.WriteString(")")
+		break
+	case "1D6B": // áµ«  [LATIN SMALL LETTER UE]
+		buffer.WriteString("u")
+		buffer.WriteString("e")
+		break
+	case "1B2", // Æ²  [LATIN CAPITAL LETTER V WITH HOOK]
+		"245",  // É…  [LATIN CAPITAL LETTER TURNED V]
+		"1D20", // á´   [LATIN LETTER SMALL CAPITAL V]
+		"1E7C", // á¹¼  [LATIN CAPITAL LETTER V WITH TILDE]
+		"1E7E", // á¹¾  [LATIN CAPITAL LETTER V WITH DOT BELOW]
+		"1EFC", // á»¼  [LATIN CAPITAL LETTER MIDDLE-WELSH V]
+		"24CB", // â“‹  [CIRCLED LATIN CAPITAL LETTER V]
+		"A75E", // êž  [LATIN CAPITAL LETTER V WITH DIAGONAL STROKE]
+		"A768", // ê¨  [LATIN CAPITAL LETTER VEND]
+		"FF36": // ï¼¶  [FULLWIDTH LATIN CAPITAL LETTER V]
+		buffer.WriteString("V")
+		break
+	case "28B", // Ê‹  [LATIN SMALL LETTER V WITH HOOK]
+		"28C",  // ÊŒ  [LATIN SMALL LETTER TURNED V]
+		"1D65", // áµ¥  [LATIN SUBSCRIPT SMALL LETTER V]
+		"1D8C", // á¶Œ  [LATIN SMALL LETTER V WITH PALATAL HOOK]
+		"1E7D", // á¹½  [LATIN SMALL LETTER V WITH TILDE]
+		"1E7F", // á¹¿  [LATIN SMALL LETTER V WITH DOT BELOW]
+		"24E5", // â“¥  [CIRCLED LATIN SMALL LETTER V]
+		"2C71", // â±±  [LATIN SMALL LETTER V WITH RIGHT HOOK]
+		"2C74", // â±´  [LATIN SMALL LETTER V WITH CURL]
+		"A75F", // êŸ  [LATIN SMALL LETTER V WITH DIAGONAL STROKE]
+		"FF56": // ï½–  [FULLWIDTH LATIN SMALL LETTER V]
+		buffer.WriteString("v")
+		break
+	case "A760": // ê   [LATIN CAPITAL LETTER VY]
+		buffer.WriteString("V")
+		buffer.WriteString("Y")
+		break
+	case "24B1": // â’±  [PARENTHESIZED LATIN SMALL LETTER V]
+		buffer.WriteString("(")
+		buffer.WriteString("v")
+		buffer.WriteString(")")
+		break
+	case "A761": // ê¡  [LATIN SMALL LETTER VY]
+		buffer.WriteString("v")
+		buffer.WriteString("y")
+		break
+	case "174", // Å´  [LATIN CAPITAL LETTER W WITH CIRCUMFLEX]
+		"1F7",  // Ç·  http://en.wikipedia.org/wiki/Wynn  [LATIN CAPITAL LETTER WYNN]
+		"1D21", // á´¡  [LATIN LETTER SMALL CAPITAL W]
+		"1E80", // áº€  [LATIN CAPITAL LETTER W WITH GRAVE]
+		"1E82", // áº‚  [LATIN CAPITAL LETTER W WITH ACUTE]
+		"1E84", // áº„  [LATIN CAPITAL LETTER W WITH DIAERESIS]
+		"1E86", // áº†  [LATIN CAPITAL LETTER W WITH DOT ABOVE]
+		"1E88", // áºˆ  [LATIN CAPITAL LETTER W WITH DOT BELOW]
+		"24CC", // â“Œ  [CIRCLED LATIN CAPITAL LETTER W]
+		"2C72", // â±²  [LATIN CAPITAL LETTER W WITH HOOK]
+		"FF37": // ï¼·  [FULLWIDTH LATIN CAPITAL LETTER W]
+		buffer.WriteString("W")
+		break
+	case "175", // Åµ  [LATIN SMALL LETTER W WITH CIRCUMFLEX]
+		"1BF",  // Æ¿  http://en.wikipedia.org/wiki/Wynn  [LATIN LETTER WYNN]
+		"28D",  // Ê  [LATIN SMALL LETTER TURNED W]
+		"1E81", // áº  [LATIN SMALL LETTER W WITH GRAVE]
+		"1E83", // áºƒ  [LATIN SMALL LETTER W WITH ACUTE]
+		"1E85", // áº…  [LATIN SMALL LETTER W WITH DIAERESIS]
+		"1E87", // áº‡  [LATIN SMALL LETTER W WITH DOT ABOVE]
+		"1E89", // áº‰  [LATIN SMALL LETTER W WITH DOT BELOW]
+		"1E98", // áº˜  [LATIN SMALL LETTER W WITH RING ABOVE]
+		"24E6", // â“¦  [CIRCLED LATIN SMALL LETTER W]
+		"2C73", // â±³  [LATIN SMALL LETTER W WITH HOOK]
+		"FF57": // ï½—  [FULLWIDTH LATIN SMALL LETTER W]
+		buffer.WriteString("w")
+		break
+	case "24B2": // â’²  [PARENTHESIZED LATIN SMALL LETTER W]
+		buffer.WriteString("(")
+		buffer.WriteString("w")
+		buffer.WriteString(")")
+		break
+	case "1E8A", // áºŠ  [LATIN CAPITAL LETTER X WITH DOT ABOVE]
+		"1E8C", // áºŒ  [LATIN CAPITAL LETTER X WITH DIAERESIS]
+		"24CD", // â“  [CIRCLED LATIN CAPITAL LETTER X]
+		"FF38": // ï¼¸  [FULLWIDTH LATIN CAPITAL LETTER X]
+		buffer.WriteString("X")
+		break
+	case "1D8D", // á¶  [LATIN SMALL LETTER X WITH PALATAL HOOK]
+		"1E8B", // áº‹  [LATIN SMALL LETTER X WITH DOT ABOVE]
+		"1E8D", // áº  [LATIN SMALL LETTER X WITH DIAERESIS]
+		"2093", // â‚“  [LATIN SUBSCRIPT SMALL LETTER X]
+		"24E7", // â“§  [CIRCLED LATIN SMALL LETTER X]
+		"FF58": // ï½˜  [FULLWIDTH LATIN SMALL LETTER X]
+		buffer.WriteString("x")
+		break
+	case "24B3": // â’³  [PARENTHESIZED LATIN SMALL LETTER X]
+		buffer.WriteString("(")
+		buffer.WriteString("x")
+		buffer.WriteString(")")
+		break
+	case "DD", // Ã  [LATIN CAPITAL LETTER Y WITH ACUTE]
+		"176",  // Å¶  [LATIN CAPITAL LETTER Y WITH CIRCUMFLEX]
+		"178",  // Å¸  [LATIN CAPITAL LETTER Y WITH DIAERESIS]
+		"1B3",  // Æ³  [LATIN CAPITAL LETTER Y WITH HOOK]
+		"232",  // È²  [LATIN CAPITAL LETTER Y WITH MACRON]
+		"24E",  // ÉŽ  [LATIN CAPITAL LETTER Y WITH STROKE]
+		"28F",  // Ê  [LATIN LETTER SMALL CAPITAL Y]
+		"1E8E", // áºŽ  [LATIN CAPITAL LETTER Y WITH DOT ABOVE]
+		"1EF2", // á»²  [LATIN CAPITAL LETTER Y WITH GRAVE]
+		"1EF4", // á»´  [LATIN CAPITAL LETTER Y WITH DOT BELOW]
+		"1EF6", // á»¶  [LATIN CAPITAL LETTER Y WITH HOOK ABOVE]
+		"1EF8", // á»¸  [LATIN CAPITAL LETTER Y WITH TILDE]
+		"1EFE", // á»¾  [LATIN CAPITAL LETTER Y WITH LOOP]
+		"24CE", // â“Ž  [CIRCLED LATIN CAPITAL LETTER Y]
+		"FF39": // ï¼¹  [FULLWIDTH LATIN CAPITAL LETTER Y]
+		buffer.WriteString("Y")
+		break
+	case "FD", // Ã½  [LATIN SMALL LETTER Y WITH ACUTE]
+		"FF",   // Ã¿  [LATIN SMALL LETTER Y WITH DIAERESIS]
+		"177",  // Å·  [LATIN SMALL LETTER Y WITH CIRCUMFLEX]
+		"1B4",  // Æ´  [LATIN SMALL LETTER Y WITH HOOK]
+		"233",  // È³  [LATIN SMALL LETTER Y WITH MACRON]
+		"24F",  // É  [LATIN SMALL LETTER Y WITH STROKE]
+		"28E",  // ÊŽ  [LATIN SMALL LETTER TURNED Y]
+		"1E8F", // áº  [LATIN SMALL LETTER Y WITH DOT ABOVE]
+		"1E99", // áº™  [LATIN SMALL LETTER Y WITH RING ABOVE]
+		"1EF3", // á»³  [LATIN SMALL LETTER Y WITH GRAVE]
+		"1EF5", // á»µ  [LATIN SMALL LETTER Y WITH DOT BELOW]
+		"1EF7", // á»·  [LATIN SMALL LETTER Y WITH HOOK ABOVE]
+		"1EF9", // á»¹  [LATIN SMALL LETTER Y WITH TILDE]
+		"1EFF", // á»¿  [LATIN SMALL LETTER Y WITH LOOP]
+		"24E8", // â“¨  [CIRCLED LATIN SMALL LETTER Y]
+		"FF59": // ï½™  [FULLWIDTH LATIN SMALL LETTER Y]
+		buffer.WriteString("y")
+		break
+	case "24B4": // â’´  [PARENTHESIZED LATIN SMALL LETTER Y]
+		buffer.WriteString("(")
+		buffer.WriteString("y")
+		buffer.WriteString(")")
+		break
+	case "179", // Å¹  [LATIN CAPITAL LETTER Z WITH ACUTE]
+		"17B",  // Å»  [LATIN CAPITAL LETTER Z WITH DOT ABOVE]
+		"17D",  // Å½  [LATIN CAPITAL LETTER Z WITH CARON]
+		"1B5",  // Æµ  [LATIN CAPITAL LETTER Z WITH STROKE]
+		"21C",  // Èœ  http://en.wikipedia.org/wiki/Yogh  [LATIN CAPITAL LETTER YOGH]
+		"224",  // È¤  [LATIN CAPITAL LETTER Z WITH HOOK]
+		"1D22", // á´¢  [LATIN LETTER SMALL CAPITAL Z]
+		"1E90", // áº  [LATIN CAPITAL LETTER Z WITH CIRCUMFLEX]
+		"1E92", // áº’  [LATIN CAPITAL LETTER Z WITH DOT BELOW]
+		"1E94", // áº”  [LATIN CAPITAL LETTER Z WITH LINE BELOW]
+		"24CF", // â“  [CIRCLED LATIN CAPITAL LETTER Z]
+		"2C6B", // â±«  [LATIN CAPITAL LETTER Z WITH DESCENDER]
+		"A762", // ê¢  [LATIN CAPITAL LETTER VISIGOTHIC Z]
+		"FF3A": // ï¼º  [FULLWIDTH LATIN CAPITAL LETTER Z]
+		buffer.WriteString("Z")
+		break
+	case "17A", // Åº  [LATIN SMALL LETTER Z WITH ACUTE]
+		"17C",  // Å¼  [LATIN SMALL LETTER Z WITH DOT ABOVE]
+		"17E",  // Å¾  [LATIN SMALL LETTER Z WITH CARON]
+		"1B6",  // Æ¶  [LATIN SMALL LETTER Z WITH STROKE]
+		"21D",  // È  http://en.wikipedia.org/wiki/Yogh  [LATIN SMALL LETTER YOGH]
+		"225",  // È¥  [LATIN SMALL LETTER Z WITH HOOK]
+		"240",  // É€  [LATIN SMALL LETTER Z WITH SWASH TAIL]
+		"290",  // Ê  [LATIN SMALL LETTER Z WITH RETROFLEX HOOK]
+		"291",  // Ê‘  [LATIN SMALL LETTER Z WITH CURL]
+		"1D76", // áµ¶  [LATIN SMALL LETTER Z WITH MIDDLE TILDE]
+		"1D8E", // á¶Ž  [LATIN SMALL LETTER Z WITH PALATAL HOOK]
+		"1E91", // áº‘  [LATIN SMALL LETTER Z WITH CIRCUMFLEX]
+		"1E93", // áº“  [LATIN SMALL LETTER Z WITH DOT BELOW]
+		"1E95", // áº•  [LATIN SMALL LETTER Z WITH LINE BELOW]
+		"24E9", // â“©  [CIRCLED LATIN SMALL LETTER Z]
+		"2C6C", // â±¬  [LATIN SMALL LETTER Z WITH DESCENDER]
+		"A763", // ê£  [LATIN SMALL LETTER VISIGOTHIC Z]
+		"FF5A": // ï½š  [FULLWIDTH LATIN SMALL LETTER Z]
+		buffer.WriteString("z")
+		break
+	case "24B5": // â’µ  [PARENTHESIZED LATIN SMALL LETTER Z]
+		buffer.WriteString("(")
+		buffer.WriteString("z")
+		buffer.WriteString(")")
+		break
+	case "2070", // â°  [SUPERSCRIPT ZERO]
+		"2080", // â‚€  [SUBSCRIPT ZERO]
+		"24EA", // â“ª  [CIRCLED DIGIT ZERO]
+		"24FF", // â“¿  [NEGATIVE CIRCLED DIGIT ZERO]
+		"FF10": // ï¼  [FULLWIDTH DIGIT ZERO]
+		buffer.WriteString("0")
+		break
+	case "B9", // Â¹  [SUPERSCRIPT ONE]
+		"2081", // â‚  [SUBSCRIPT ONE]
+		"2460", // â‘   [CIRCLED DIGIT ONE]
+		"24F5", // â“µ  [DOUBLE CIRCLED DIGIT ONE]
+		"2776", // â¶  [DINGBAT NEGATIVE CIRCLED DIGIT ONE]
+		"2780", // âž€  [DINGBAT CIRCLED SANS-SERIF DIGIT ONE]
+		"278A", // âžŠ  [DINGBAT NEGATIVE CIRCLED SANS-SERIF DIGIT ONE]
+		"FF11": // ï¼‘  [FULLWIDTH DIGIT ONE]
+		buffer.WriteString("1")
+		break
+	case "2488": // â’ˆ  [DIGIT ONE FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString(".")
+		break
+	case "2474": // â‘´  [PARENTHESIZED DIGIT ONE]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString(")")
+		break
+	case "B2", // Â²  [SUPERSCRIPT TWO]
+		"2082", // â‚‚  [SUBSCRIPT TWO]
+		"2461", // â‘¡  [CIRCLED DIGIT TWO]
+		"24F6", // â“¶  [DOUBLE CIRCLED DIGIT TWO]
+		"2777", // â·  [DINGBAT NEGATIVE CIRCLED DIGIT TWO]
+		"2781", // âž  [DINGBAT CIRCLED SANS-SERIF DIGIT TWO]
+		"278B", // âž‹  [DINGBAT NEGATIVE CIRCLED SANS-SERIF DIGIT TWO]
+		"FF12": // ï¼’  [FULLWIDTH DIGIT TWO]
+		buffer.WriteString("2")
+		break
+	case "2489": // â’‰  [DIGIT TWO FULL STOP]
+		buffer.WriteString("2")
+		buffer.WriteString(".")
+		break
+	case "2475": // â‘µ  [PARENTHESIZED DIGIT TWO]
+		buffer.WriteString("(")
+		buffer.WriteString("2")
+		buffer.WriteString(")")
+		break
+	case "B3", // Â³  [SUPERSCRIPT THREE]
+		"2083", // â‚ƒ  [SUBSCRIPT THREE]
+		"2462", // â‘¢  [CIRCLED DIGIT THREE]
+		"24F7", // â“·  [DOUBLE CIRCLED DIGIT THREE]
+		"2778", // â¸  [DINGBAT NEGATIVE CIRCLED DIGIT THREE]
+		"2782", // âž‚  [DINGBAT CIRCLED SANS-SERIF DIGIT THREE]
+		"278C", // âžŒ  [DINGBAT NEGATIVE CIRCLED SANS-SERIF DIGIT THREE]
+		"FF13": // ï¼“  [FULLWIDTH DIGIT THREE]
+		buffer.WriteString("3")
+		break
+	case "248A": // â’Š  [DIGIT THREE FULL STOP]
+		buffer.WriteString("3")
+		buffer.WriteString(".")
+		break
+	case "2476": // â‘¶  [PARENTHESIZED DIGIT THREE]
+		buffer.WriteString("(")
+		buffer.WriteString("3")
+		buffer.WriteString(")")
+		break
+	case "2074", // â´  [SUPERSCRIPT FOUR]
+		"2084", // â‚„  [SUBSCRIPT FOUR]
+		"2463", // â‘£  [CIRCLED DIGIT FOUR]
+		"24F8", // â“¸  [DOUBLE CIRCLED DIGIT FOUR]
+		"2779", // â¹  [DINGBAT NEGATIVE CIRCLED DIGIT FOUR]
+		"2783", // âžƒ  [DINGBAT CIRCLED SANS-SERIF DIGIT FOUR]
+		"278D", // âž  [DINGBAT NEGATIVE CIRCLED SANS-SERIF DIGIT FOUR]
+		"FF14": // ï¼”  [FULLWIDTH DIGIT FOUR]
+		buffer.WriteString("4")
+		break
+	case "248B": // â’‹  [DIGIT FOUR FULL STOP]
+		buffer.WriteString("4")
+		buffer.WriteString(".")
+		break
+	case "2477": // â‘·  [PARENTHESIZED DIGIT FOUR]
+		buffer.WriteString("(")
+		buffer.WriteString("4")
+		buffer.WriteString(")")
+		break
+	case "2075", // âµ  [SUPERSCRIPT FIVE]
+		"2085", // â‚…  [SUBSCRIPT FIVE]
+		"2464", // â‘¤  [CIRCLED DIGIT FIVE]
+		"24F9", // â“¹  [DOUBLE CIRCLED DIGIT FIVE]
+		"277A", // âº  [DINGBAT NEGATIVE CIRCLED DIGIT FIVE]
+		"2784", // âž„  [DINGBAT CIRCLED SANS-SERIF DIGIT FIVE]
+		"278E", // âžŽ  [DINGBAT NEGATIVE CIRCLED SANS-SERIF DIGIT FIVE]
+		"FF15": // ï¼•  [FULLWIDTH DIGIT FIVE]
+		buffer.WriteString("5")
+		break
+	case "248C": // â’Œ  [DIGIT FIVE FULL STOP]
+		buffer.WriteString("5")
+		buffer.WriteString(".")
+		break
+	case "2478": // â‘¸  [PARENTHESIZED DIGIT FIVE]
+		buffer.WriteString("(")
+		buffer.WriteString("5")
+		buffer.WriteString(")")
+		break
+	case "2076", // â¶  [SUPERSCRIPT SIX]
+		"2086", // â‚†  [SUBSCRIPT SIX]
+		"2465", // â‘¥  [CIRCLED DIGIT SIX]
+		"24FA", // â“º  [DOUBLE CIRCLED DIGIT SIX]
+		"277B", // â»  [DINGBAT NEGATIVE CIRCLED DIGIT SIX]
+		"2785", // âž…  [DINGBAT CIRCLED SANS-SERIF DIGIT SIX]
+		"278F", // âž  [DINGBAT NEGATIVE CIRCLED SANS-SERIF DIGIT SIX]
+		"FF16": // ï¼–  [FULLWIDTH DIGIT SIX]
+		buffer.WriteString("6")
+		break
+	case "248D": // â’  [DIGIT SIX FULL STOP]
+		buffer.WriteString("6")
+		buffer.WriteString(".")
+		break
+	case "2479": // â‘¹  [PARENTHESIZED DIGIT SIX]
+		buffer.WriteString("(")
+		buffer.WriteString("6")
+		buffer.WriteString(")")
+		break
+	case "2077", // â·  [SUPERSCRIPT SEVEN]
+		"2087", // â‚‡  [SUBSCRIPT SEVEN]
+		"2466", // â‘¦  [CIRCLED DIGIT SEVEN]
+		"24FB", // â“»  [DOUBLE CIRCLED DIGIT SEVEN]
+		"277C", // â¼  [DINGBAT NEGATIVE CIRCLED DIGIT SEVEN]
+		"2786", // âž†  [DINGBAT CIRCLED SANS-SERIF DIGIT SEVEN]
+		"2790", // âž  [DINGBAT NEGATIVE CIRCLED SANS-SERIF DIGIT SEVEN]
+		"FF17": // ï¼—  [FULLWIDTH DIGIT SEVEN]
+		buffer.WriteString("7")
+		break
+	case "248E": // â’Ž  [DIGIT SEVEN FULL STOP]
+		buffer.WriteString("7")
+		buffer.WriteString(".")
+		break
+	case "247A": // â‘º  [PARENTHESIZED DIGIT SEVEN]
+		buffer.WriteString("(")
+		buffer.WriteString("7")
+		buffer.WriteString(")")
+		break
+	case "2078", // â¸  [SUPERSCRIPT EIGHT]
+		"2088", // â‚ˆ  [SUBSCRIPT EIGHT]
+		"2467", // â‘§  [CIRCLED DIGIT EIGHT]
+		"24FC", // â“¼  [DOUBLE CIRCLED DIGIT EIGHT]
+		"277D", // â½  [DINGBAT NEGATIVE CIRCLED DIGIT EIGHT]
+		"2787", // âž‡  [DINGBAT CIRCLED SANS-SERIF DIGIT EIGHT]
+		"2791", // âž‘  [DINGBAT NEGATIVE CIRCLED SANS-SERIF DIGIT EIGHT]
+		"FF18": // ï¼˜  [FULLWIDTH DIGIT EIGHT]
+		buffer.WriteString("8")
+		break
+	case "248F": // â’  [DIGIT EIGHT FULL STOP]
+		buffer.WriteString("8")
+		buffer.WriteString(".")
+		break
+	case "247B": // â‘»  [PARENTHESIZED DIGIT EIGHT]
+		buffer.WriteString("(")
+		buffer.WriteString("8")
+		buffer.WriteString(")")
+		break
+	case "2079", // â¹  [SUPERSCRIPT NINE]
+		"2089", // â‚‰  [SUBSCRIPT NINE]
+		"2468", // â‘¨  [CIRCLED DIGIT NINE]
+		"24FD", // â“½  [DOUBLE CIRCLED DIGIT NINE]
+		"277E", // â¾  [DINGBAT NEGATIVE CIRCLED DIGIT NINE]
+		"2788", // âžˆ  [DINGBAT CIRCLED SANS-SERIF DIGIT NINE]
+		"2792", // âž’  [DINGBAT NEGATIVE CIRCLED SANS-SERIF DIGIT NINE]
+		"FF19": // ï¼™  [FULLWIDTH DIGIT NINE]
+		buffer.WriteString("9")
+		break
+	case "2490": // â’  [DIGIT NINE FULL STOP]
+		buffer.WriteString("9")
+		buffer.WriteString(".")
+		break
+	case "247C": // â‘¼  [PARENTHESIZED DIGIT NINE]
+		buffer.WriteString("(")
+		buffer.WriteString("9")
+		buffer.WriteString(")")
+		break
+	case "2469", // â‘©  [CIRCLED NUMBER TEN]
+		"24FE", // â“¾  [DOUBLE CIRCLED NUMBER TEN]
+		"277F", // â¿  [DINGBAT NEGATIVE CIRCLED NUMBER TEN]
+		"2789", // âž‰  [DINGBAT CIRCLED SANS-SERIF NUMBER TEN]
+		"2793": // âž“  [DINGBAT NEGATIVE CIRCLED SANS-SERIF NUMBER TEN]
+		buffer.WriteString("1")
+		buffer.WriteString("0")
+		break
+	case "2491": // â’‘  [NUMBER TEN FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString("0")
+		buffer.WriteString(".")
+		break
+	case "247D": // â‘½  [PARENTHESIZED NUMBER TEN]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString("0")
+		buffer.WriteString(")")
+		break
+	case "246A", // â‘ª  [CIRCLED NUMBER ELEVEN]
+		"24EB": // â“«  [NEGATIVE CIRCLED NUMBER ELEVEN]
+		buffer.WriteString("1")
+		buffer.WriteString("1")
+		break
+	case "2492": // â’’  [NUMBER ELEVEN FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString("1")
+		buffer.WriteString(".")
+		break
+	case "247E": // â‘¾  [PARENTHESIZED NUMBER ELEVEN]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString("1")
+		buffer.WriteString(")")
+		break
+	case "246B", // â‘«  [CIRCLED NUMBER TWELVE]
+		"24EC": // â“¬  [NEGATIVE CIRCLED NUMBER TWELVE]
+		buffer.WriteString("1")
+		buffer.WriteString("2")
+		break
+	case "2493": // â’“  [NUMBER TWELVE FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString("2")
+		buffer.WriteString(".")
+		break
+	case "247F": // â‘¿  [PARENTHESIZED NUMBER TWELVE]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString("2")
+		buffer.WriteString(")")
+		break
+	case "246C", // â‘¬  [CIRCLED NUMBER THIRTEEN]
+		"24ED": // â“­  [NEGATIVE CIRCLED NUMBER THIRTEEN]
+		buffer.WriteString("1")
+		buffer.WriteString("3")
+		break
+	case "2494": // â’”  [NUMBER THIRTEEN FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString("3")
+		buffer.WriteString(".")
+		break
+	case "2480": // â’€  [PARENTHESIZED NUMBER THIRTEEN]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString("3")
+		buffer.WriteString(")")
+		break
+	case "246D", // â‘­  [CIRCLED NUMBER FOURTEEN]
+		"24EE": // â“®  [NEGATIVE CIRCLED NUMBER FOURTEEN]
+		buffer.WriteString("1")
+		buffer.WriteString("4")
+		break
+	case "2495": // â’•  [NUMBER FOURTEEN FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString("4")
+		buffer.WriteString(".")
+		break
+	case "2481": // â’  [PARENTHESIZED NUMBER FOURTEEN]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString("4")
+		buffer.WriteString(")")
+		break
+	case "246E", // â‘®  [CIRCLED NUMBER FIFTEEN]
+		"24EF": // â“¯  [NEGATIVE CIRCLED NUMBER FIFTEEN]
+		buffer.WriteString("1")
+		buffer.WriteString("5")
+		break
+	case "2496": // â’–  [NUMBER FIFTEEN FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString("5")
+		buffer.WriteString(".")
+		break
+	case "2482": // â’‚  [PARENTHESIZED NUMBER FIFTEEN]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString("5")
+		buffer.WriteString(")")
+		break
+	case "246F", // â‘¯  [CIRCLED NUMBER SIXTEEN]
+		"24F0": // â“°  [NEGATIVE CIRCLED NUMBER SIXTEEN]
+		buffer.WriteString("1")
+		buffer.WriteString("6")
+		break
+	case "2497": // â’—  [NUMBER SIXTEEN FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString("6")
+		buffer.WriteString(".")
+		break
+	case "2483": // â’ƒ  [PARENTHESIZED NUMBER SIXTEEN]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString("6")
+		buffer.WriteString(")")
+		break
+	case "2470", // â‘°  [CIRCLED NUMBER SEVENTEEN]
+		"24F1": // â“±  [NEGATIVE CIRCLED NUMBER SEVENTEEN]
+		buffer.WriteString("1")
+		buffer.WriteString("7")
+		break
+	case "2498": // â’˜  [NUMBER SEVENTEEN FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString("7")
+		buffer.WriteString(".")
+		break
+	case "2484": // â’„  [PARENTHESIZED NUMBER SEVENTEEN]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString("7")
+		buffer.WriteString(")")
+		break
+	case "2471", // â‘±  [CIRCLED NUMBER EIGHTEEN]
+		"24F2": // â“²  [NEGATIVE CIRCLED NUMBER EIGHTEEN]
+		buffer.WriteString("1")
+		buffer.WriteString("8")
+		break
+	case "2499": // â’™  [NUMBER EIGHTEEN FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString("8")
+		buffer.WriteString(".")
+		break
+	case "2485": // â’…  [PARENTHESIZED NUMBER EIGHTEEN]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString("8")
+		buffer.WriteString(")")
+		break
+	case "2472", // â‘²  [CIRCLED NUMBER NINETEEN]
+		"24F3": // â“³  [NEGATIVE CIRCLED NUMBER NINETEEN]
+		buffer.WriteString("1")
+		buffer.WriteString("9")
+		break
+	case "249A": // â’š  [NUMBER NINETEEN FULL STOP]
+		buffer.WriteString("1")
+		buffer.WriteString("9")
+		buffer.WriteString(".")
+		break
+	case "2486": // â’†  [PARENTHESIZED NUMBER NINETEEN]
+		buffer.WriteString("(")
+		buffer.WriteString("1")
+		buffer.WriteString("9")
+		buffer.WriteString(")")
+		break
+	case "2473", // â‘³  [CIRCLED NUMBER TWENTY]
+		"24F4": // â“´  [NEGATIVE CIRCLED NUMBER TWENTY]
+		buffer.WriteString("2")
+		buffer.WriteString("0")
+		break
+	case "249B": // â’›  [NUMBER TWENTY FULL STOP]
+		buffer.WriteString("2")
+		buffer.WriteString("0")
+		buffer.WriteString(".")
+		break
+	case "2487": // â’‡  [PARENTHESIZED NUMBER TWENTY]
+		buffer.WriteString("(")
+		buffer.WriteString("2")
+		buffer.WriteString("0")
+		buffer.WriteString(")")
+		break
+	case "AB", // Â«  [LEFT-POINTING DOUBLE ANGLE QUOTATION MARK]
+		"BB",   // Â»  [RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK]
+		"201C", // â€œ  [LEFT DOUBLE QUOTATION MARK]
+		"201D", // â€  [RIGHT DOUBLE QUOTATION MARK]
+		"201E", // â€ž  [DOUBLE LOW-9 QUOTATION MARK]
+		"2033", // â€³  [DOUBLE PRIME]
+		"2036", // â€¶  [REVERSED DOUBLE PRIME]
+		"275D", // â  [HEAVY DOUBLE TURNED COMMA QUOTATION MARK ORNAMENT]
+		"275E", // âž  [HEAVY DOUBLE COMMA QUOTATION MARK ORNAMENT]
+		"276E", // â®  [HEAVY LEFT-POINTING ANGLE QUOTATION MARK ORNAMENT]
+		"276F", // â¯  [HEAVY RIGHT-POINTING ANGLE QUOTATION MARK ORNAMENT]
+		"FF02": // ï¼‚  [FULLWIDTH QUOTATION MARK]
+		buffer.WriteString("\"")
+		break
+	case "2018", // â€˜  [LEFT SINGLE QUOTATION MARK]
+		"2019", // â€™  [RIGHT SINGLE QUOTATION MARK]
+		"201A", // â€š  [SINGLE LOW-9 QUOTATION MARK]
+		"201B", // â€›  [SINGLE HIGH-REVERSED-9 QUOTATION MARK]
+		"2032", // â€²  [PRIME]
+		"2035", // â€µ  [REVERSED PRIME]
+		"2039", // â€¹  [SINGLE LEFT-POINTING ANGLE QUOTATION MARK]
+		"203A", // â€º  [SINGLE RIGHT-POINTING ANGLE QUOTATION MARK]
+		"275B", // â›  [HEAVY SINGLE TURNED COMMA QUOTATION MARK ORNAMENT]
+		"275C", // âœ  [HEAVY SINGLE COMMA QUOTATION MARK ORNAMENT]
+		"FF07": // ï¼‡  [FULLWIDTH APOSTROPHE]
+		buffer.WriteString("'")
+		break
+	case "2010", // â€  [HYPHEN]
+		"2011", // â€‘  [NON-BREAKING HYPHEN]
+		"2012", // â€’  [FIGURE DASH]
+		"2013", // â€“  [EN DASH]
+		"2014", // â€”  [EM DASH]
+		"207B", // â»  [SUPERSCRIPT MINUS]
+		"208B", // â‚‹  [SUBSCRIPT MINUS]
+		"FF0D": // ï¼  [FULLWIDTH HYPHEN-MINUS]
+		buffer.WriteString("-")
+		break
+	case "2045", // â…  [LEFT SQUARE BRACKET WITH QUILL]
+		"2772", // â²  [LIGHT LEFT TORTOISE SHELL BRACKET ORNAMENT]
+		"FF3B": // ï¼»  [FULLWIDTH LEFT SQUARE BRACKET]
+		buffer.WriteString("[")
+		break
+	case "2046", // â†  [RIGHT SQUARE BRACKET WITH QUILL]
+		"2773", // â³  [LIGHT RIGHT TORTOISE SHELL BRACKET ORNAMENT]
+		"FF3D": // ï¼½  [FULLWIDTH RIGHT SQUARE BRACKET]
+		buffer.WriteString("]")
+		break
+	case "207D", // â½  [SUPERSCRIPT LEFT PARENTHESIS]
+		"208D", // â‚  [SUBSCRIPT LEFT PARENTHESIS]
+		"2768", // â¨  [MEDIUM LEFT PARENTHESIS ORNAMENT]
+		"276A", // âª  [MEDIUM FLATTENED LEFT PARENTHESIS ORNAMENT]
+		"FF08": // ï¼ˆ  [FULLWIDTH LEFT PARENTHESIS]
+		buffer.WriteString("(")
+		break
+	case "2E28": // â¸¨  [LEFT DOUBLE PARENTHESIS]
+		buffer.WriteString("(")
+		buffer.WriteString("(")
+		break
+	case "207E", // â¾  [SUPERSCRIPT RIGHT PARENTHESIS]
+		"208E", // â‚Ž  [SUBSCRIPT RIGHT PARENTHESIS]
+		"2769", // â©  [MEDIUM RIGHT PARENTHESIS ORNAMENT]
+		"276B", // â«  [MEDIUM FLATTENED RIGHT PARENTHESIS ORNAMENT]
+		"FF09": // ï¼‰  [FULLWIDTH RIGHT PARENTHESIS]
+		buffer.WriteString(")")
+		break
+	case "2E29": // â¸©  [RIGHT DOUBLE PARENTHESIS]
+		buffer.WriteString(")")
+		buffer.WriteString(")")
+		break
+	case "276C", // â¬  [MEDIUM LEFT-POINTING ANGLE BRACKET ORNAMENT]
+		"2770", // â°  [HEAVY LEFT-POINTING ANGLE BRACKET ORNAMENT]
+		"FF1C": // ï¼œ  [FULLWIDTH LESS-THAN SIGN]
+		buffer.WriteString("<")
+		break
+	case "276D", // â­  [MEDIUM RIGHT-POINTING ANGLE BRACKET ORNAMENT]
+		"2771", // â±  [HEAVY RIGHT-POINTING ANGLE BRACKET ORNAMENT]
+		"FF1E": // ï¼ž  [FULLWIDTH GREATER-THAN SIGN]
+		buffer.WriteString(">")
+		break
+	case "2774", // â´  [MEDIUM LEFT CURLY BRACKET ORNAMENT]
+		"FF5B": // ï½›  [FULLWIDTH LEFT CURLY BRACKET]
+		buffer.WriteString("{")
+		break
+	case "2775", // âµ  [MEDIUM RIGHT CURLY BRACKET ORNAMENT]
+		"FF5D": // ï½  [FULLWIDTH RIGHT CURLY BRACKET]
+		buffer.WriteString("}")
+		break
+	case "207A", // âº  [SUPERSCRIPT PLUS SIGN]
+		"208A", // â‚Š  [SUBSCRIPT PLUS SIGN]
+		"FF0B": // ï¼‹  [FULLWIDTH PLUS SIGN]
+		buffer.WriteString("+")
+		break
+	case "207C", // â¼  [SUPERSCRIPT EQUALS SIGN]
+		"208C", // â‚Œ  [SUBSCRIPT EQUALS SIGN]
+		"FF1D": // ï¼  [FULLWIDTH EQUALS SIGN]
+		buffer.WriteString("=")
+		break
+	case "FF01": // ï¼  [FULLWIDTH EXCLAMATION MARK]
+		buffer.WriteString("!")
+		break
+	case "203C": // â€¼  [DOUBLE EXCLAMATION MARK]
+		buffer.WriteString("!")
+		buffer.WriteString("!")
+		break
+	case "2049": // â‰  [EXCLAMATION QUESTION MARK]
+		buffer.WriteString("!")
+		buffer.WriteString("?")
+		break
+	case "FF03": // ï¼ƒ  [FULLWIDTH NUMBER SIGN]
+		buffer.WriteString("#")
+		break
+	case "FF04": // ï¼„  [FULLWIDTH DOLLAR SIGN]
+		buffer.WriteString("$")
+		break
+	case "2052", // â’  [COMMERCIAL MINUS SIGN]
+		"FF05": // ï¼…  [FULLWIDTH PERCENT SIGN]
+		buffer.WriteString("%")
+		break
+	case "FF06": // ï¼†  [FULLWIDTH AMPERSAND]
+		buffer.WriteString("&")
+		break
+	case "204E", // âŽ  [LOW ASTERISK]
+		"FF0A": // ï¼Š  [FULLWIDTH ASTERISK]
+		buffer.WriteString("*")
+		break
+	case "FF0C": // ï¼Œ  [FULLWIDTH COMMA]
+		buffer.WriteString(",")
+		break
+	case "FF0E": // ï¼Ž  [FULLWIDTH FULL STOP]
+		buffer.WriteString(".")
+		break
+	case "2044", // â„  [FRACTION SLASH]
+		"FF0F": // ï¼  [FULLWIDTH SOLIDUS]
+		buffer.WriteString("/")
+		break
+	case "FF1A": // ï¼š  [FULLWIDTH COLON]
+		buffer.WriteString(",")
+		break
+	case "204F", // â  [REVERSED SEMICOLON]
+		"FF1B": // ï¼›  [FULLWIDTH SEMICOLON]
+		buffer.WriteString(";")
+		break
+	case "FF1F": // ï¼Ÿ  [FULLWIDTH QUESTION MARK]
+		buffer.WriteString("?")
+		break
+	case "2047": // â‡  [DOUBLE QUESTION MARK]
+		buffer.WriteString("?")
+		buffer.WriteString("?")
+		break
+	case "2048": // âˆ  [QUESTION EXCLAMATION MARK]
+		buffer.WriteString("?")
+		buffer.WriteString("!")
+		break
+	case "FF20": // ï¼   [FULLWIDTH COMMERCIAL AT]
+		buffer.WriteString("@")
+		break
+	case "FF3C": // ï¼¼  [FULLWIDTH REVERSE SOLIDUS]
+		buffer.WriteString("\\")
+		break
+	case "2038", // â€¸  [CARET]
+		"FF3E": // ï¼¾  [FULLWIDTH CIRCUMFLEX ACCENT]
+		buffer.WriteString("^")
+		break
+	case "FF3F": // ï¼¿  [FULLWIDTH LOW LINE]
+		buffer.WriteString("_")
+		break
+	case "2053", // â“  [SWUNG DASH]
+		"FF5E": // ï½ž  [FULLWIDTH TILDE]
+		buffer.WriteString("~")
+		break
+	default:
+		buffer.WriteString(str)
+		break
+	}
+
+	return buffer.String()
 }
