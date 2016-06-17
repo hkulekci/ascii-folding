@@ -1,4 +1,4 @@
-## Ascii Folding Library [![codecov](https://codecov.io/gh/hkulekci/ascii-folding/branch/master/graph/badge.svg)](https://codecov.io/gh/hkulekci/ascii-folding)
+## Ascii Folding Library [![Build Status](https://snap-ci.com/hkulekci/ascii-folding/branch/master/build_image)](https://snap-ci.com/hkulekci/ascii-folding/branch/master) [![codecov](https://codecov.io/gh/hkulekci/ascii-folding/branch/master/graph/badge.svg)](https://codecov.io/gh/hkulekci/ascii-folding)
 
 An Golang port of the Apache Lucene ASCII Folding Filter. This library converts 
 alphabetic, numeric, and symbolic Unicode characters into their ASCII 
