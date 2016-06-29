@@ -11,6 +11,7 @@ func TestTextFolding(t *testing.T) {
 	assert.Equal("Some", Fold("Söme"))
 	assert.Equal("Gum", Fold("Güm"))
 	assert.Equal("Cunku", Fold("Çünkü"))
+	assert.Equal("ocsiguOCSIGU", Fold("öçşiğüÖÇŞİĞÜ"))
 	assert.Equal("alemi huzun icundur", Fold("âlêmî hüzün içûndur"))
 	assert.Equal("Passe compose", Fold("Passé composé"))
 	assert.Equal("En reponse a votre annonce dans le magazine FUSAC le 20 juillet 2010, je vous ecris pour poser ma candidature pour le poste de enseignante remplacant d'anglais dans votre ecole.  Puisque je m'interesse beaucoup a l'enseignement des langues, ce poste correspond parfaitement a mes objectifs professionnels.", Fold("En réponse à votre annonce dans le magazine FUSAC le 20 juillet 2010, je vous écris pour poser ma candidature pour le poste de enseignante remplaçant d’anglais dans votre école.  Puisque je m’intéresse beaucoup à l’enseignement des langues, ce poste correspond parfaitement à mes objectifs professionnels."))
